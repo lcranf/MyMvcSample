@@ -22,7 +22,7 @@ MyMvcSample is intended as a blueprint for using ASP.NET MVC3 with an Ioc (in th
 Be aware that in this architecture all entities must inherit from `IEnity`.  The sample also using the EF Hooks project (<http://bit.ly/p9XJ4E>) to manage standard audit fields (CreatedOn, CreatedBy, etc...) automatically
 
 
-** Controller Layer **
+**Controller Layer**
 
 A controller will be scaffolded with a reference to it's corresponding Service class.  This helps keep the controller Thin and free of any clutter not related to it's navigational responsibilities.  A base example of scaffolded controller is below:
 
