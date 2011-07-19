@@ -24,7 +24,7 @@ Be aware that in this architecture all entities must inherit from `IEnity`.  The
 
 **Controller Layer**
 
-A controller will be scaffolded with a reference to it's corresponding Service class.  This helps keep the controller Thin and free of any clutter not related to it's navigational responsibilities.  A base example of scaffolded controller is below:
+A controller will be scaffolded with a reference to it's corresponding Service class.  This helps keep the controller Thin and free of any clutter not related to it's navigational responsibilities.  A base example of a scaffolded controller is below:
 
     public class OrderController : BaseController
     {
@@ -37,7 +37,7 @@ A controller will be scaffolded with a reference to it's corresponding Service c
     }
 
 
-**Note:** Since all services are auto-registered with Ninject Conventions, there is no need to worry about mucking
+**Note:** Since all services are auto-registered with Ninject Conventions, there is no need to worry about mucking around with an Ioc configuration file. All services will be registered and properly resolved at runtime.
 
 More details to come...
 
