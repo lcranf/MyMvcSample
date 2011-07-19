@@ -1,0 +1,21 @@
+﻿@model MyMvcSample.ViewModels.BaseAuditableModel
+
+<div class="display-label">Created By</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.CreatedBy)
+</div>
+
+<div class="display-label">Created On</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.CreatedOn)
+</div>
+
+<div class="display-label">Updated By</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.UpdatedBy)
+</div>
+
+<div class="display-label">Updated On</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.UpdatedOn)
+</div>
