@@ -52,9 +52,6 @@ namespace MyMvcSample.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             IocRegistrar.Register(kernel);
-
-            //register model binder
-            ModelBinders.Binders.DefaultBinder = ServiceLocator.Current.GetInstance<SmartModelBinder>();
         }        
     }
 }
