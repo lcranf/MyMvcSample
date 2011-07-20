@@ -1,6 +1,3 @@
-using System.Web.Mvc;
-using Microsoft.Practices.ServiceLocation;
-using MyMvcSample.Common.ModelBinders;
 using MyMvcSample.Infrastructure.Ioc;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(MyMvcSample.App_Start.NinjectMVC3), "Start")]
