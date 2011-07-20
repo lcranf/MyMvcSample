@@ -41,3 +41,9 @@ A controller will be scaffolded with a reference to it's corresponding Service c
 
 More details to come...
 
+**TODO's**
+
+1.  Add Elmah and ElmahErrorHandler to project
+2.  Implement ElmahController to bypass using the default Elmah Http Handler
+3.  Add T4MVC to eliminate strings
+4.  Add MVCContrib for test helpers
