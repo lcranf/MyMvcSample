@@ -11,7 +11,7 @@ param(
     [alias("ContentPlaceholderIDs")][string[]]$SectionNames,
     [alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,    
     [switch]$ReferenceScriptLibraries = $false,
-    [switch]$UseIoc = $true,
+    [switch]$NoIoc = $false,
     [switch]$Repository = $false,
     [switch]$NoChildItems = $false,    
     [string[]]$TemplateFolders,
@@ -112,7 +112,7 @@ Add-ProjectItemViaTemplate $servicePath -Template "Service" -Model @{
    ModelType = [MarshalByRefObject]$foundModelType;
    DefaultNamespace = $defaultNamespace;
    ModelTypeNs = $modelTypeNamespace;
-   NoIoc = $UseIoc.IsPresent;
+   NoIoc = $NoIoc.IsPresent;
 } -SuccessMessage "Added Service {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
 
 

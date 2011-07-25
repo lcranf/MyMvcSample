@@ -21,11 +21,11 @@ namespace MyMvcSample.Controllers
 
     public class <#= modelName #>Service : CrudService<<#= modelName #>>, I<#= modelName #>Service
     {
-        <#= Model.NoIoc #>
-        
+        <# if(Model.NoIoc) { #>   
         public <#= modelName #>Service()
-            : this(new Repository<<#= modelName#>>(new DbContextRegistry())) {}
-        
+            : this(new Repository<<#= modelName#>>(new DbContextRegistry())) {}  
+        <# } #>
+     
         public <#= modelName #>Service(IRepository<<#= modelName #>> repository) 
             : base(repository) {}
     }

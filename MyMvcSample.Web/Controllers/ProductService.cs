@@ -10,11 +10,10 @@ namespace MyMvcSample.Controllers
 
     public class ProductService : CrudService<Product>, IProductService
     {
-        True
-        
+           
         public ProductService()
-            : this(new Repository<Product>(new DbContextRegistry())) {}
-        
+            : this(new Repository<Product>(new DbContextRegistry())) {}  
+             
         public ProductService(IRepository<Product> repository) 
             : base(repository) {}
     }
