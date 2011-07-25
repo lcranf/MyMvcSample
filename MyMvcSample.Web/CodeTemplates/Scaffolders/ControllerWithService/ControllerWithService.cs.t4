@@ -33,11 +33,13 @@ namespace <#= Model.ControllerNamespace #>
     public class <#= Model.ControllerName #> : Controller
     {
         private readonly I<#= serviceName #> _<#= serviceVariableName #>;
+        <# if(Model.NoIoc) { #>
 
         // If you are using Dependency Injection, you can delete the following constructor
         public <#= Model.ControllerName #>() : this(new <#= serviceName #>())
         {
         }
+        <# } #>
 
         public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #>)
         {

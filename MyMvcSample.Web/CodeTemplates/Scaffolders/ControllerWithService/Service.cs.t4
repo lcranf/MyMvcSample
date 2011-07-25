@@ -21,7 +21,9 @@ namespace MyMvcSample.Controllers
 
     public class <#= modelName #>Service : CrudService<<#= modelName #>>, I<#= modelName #>Service
     {
-        <# if(Model.NoIoc) { #>   
+        <# if(Model.NoIoc) { #>
+
+        // If you are using Dependency Injection, you can delete the following constructor   
         public <#= modelName #>Service()
             : this(new Repository<<#= modelName#>>(new DbContextRegistry())) {}  
         <# } #>

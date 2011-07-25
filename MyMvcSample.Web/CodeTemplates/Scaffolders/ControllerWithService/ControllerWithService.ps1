@@ -11,8 +11,7 @@ param(
     [alias("ContentPlaceholderIDs")][string[]]$SectionNames,
     [alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,    
     [switch]$ReferenceScriptLibraries = $false,
-    [switch]$NoIoc = $false,
-    [switch]$Repository = $false,
+    [switch]$NoIoc = $false,    
     [switch]$NoChildItems = $false,    
     [string[]]$TemplateFolders,
     [switch]$Force = $false,
@@ -65,14 +64,10 @@ if (!$ModelType) {
 Write-Host "Scaffolding $ControllerName..."
 
 if(!$DbContextType) { $DbContextType = [System.Text.RegularExpressions.Regex]::Replace((Get-Project $Project).Name, "[^a-zA-Z0-9]", "") + "Context" }
-if (!$NoChildItems) {
-    if ($Repository) {
-        Scaffold Repository -ModelType $foundModelType.FullName -DbContextType $DbContextType -Area $Area -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController -BlockUi
-    } else {
+if (!$NoChildItems) {    
         $dbContextScaffolderResult = Scaffold DbContext -ModelType $foundModelType.FullName -DbContextType $DbContextType -Area $Area -Project $Project -CodeLanguage $CodeLanguage -BlockUi
         $foundDbContextType = $dbContextScaffolderResult.DbContextType
-        if (!$foundDbContextType) { return }
-    }
+        if (!$foundDbContextType) { return }    
 }
 if (!$foundDbContextType) { $foundDbContextType = Get-ProjectType $DbContextType -Project $Project }
 if (!$foundDbContextType) { return }
@@ -94,7 +89,6 @@ if ($Area) {
 }
 
 # Prepare all the parameter values to pass to the template, then invoke the template with those values
-$repositoryName = $foundModelType.Name + "Repository"
 $defaultNamespace = (Get-Project $Project).Properties.Item("DefaultNamespace").Value
 $modelTypeNamespace = [T4Scaffolding.Namespaces]::GetNamespace($foundModelType.FullName)
 $controllerNamespace = [T4Scaffolding.Namespaces]::Normalize($defaultNamespace + "." + [System.IO.Path]::GetDirectoryName($outputPath).Replace([System.IO.Path]::DirectorySeparatorChar, "."))
@@ -129,10 +123,10 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     RepositoriesNamespace = $repositoriesNamespace;
     ModelTypeNamespace = $modelTypeNamespace; 
     ControllerNamespace = $controllerNamespace; 
-    DbContextType = [MarshalByRefObject]$foundDbContextType;
-    Repository = $repositoryName; 
+    DbContextType = [MarshalByRefObject]$foundDbContextType;    
     ModelTypePluralized = [string]$modelTypePluralized;    
     RelatedEntities = $relatedEntities;
+    NoIoc = $NoIoc.IsPresent;
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 
 if (!$NoChildItems) {

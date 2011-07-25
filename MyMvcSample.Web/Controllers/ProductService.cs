@@ -10,7 +10,8 @@ namespace MyMvcSample.Controllers
 
     public class ProductService : CrudService<Product>, IProductService
     {
-           
+        
+        // If you are using Dependency Injection, you can delete the following constructor   
         public ProductService()
             : this(new Repository<Product>(new DbContextRegistry())) {}  
              
