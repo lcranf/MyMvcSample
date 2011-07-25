@@ -2,12 +2,12 @@
 <TransformationPropertyValues xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Values>
     <TransformationPropertyValue>
-      <FileName>CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.cs.t4</FileName>
+      <FileName>CodeTemplates\Scaffolders\ControllerWithService\Service.cs.t4</FileName>
       <PropertyName>Host</PropertyName>
       <Value>VisualStudio</Value>
     </TransformationPropertyValue>
     <TransformationPropertyValue>
-      <FileName>CodeTemplates\Scaffolders\ControllerWithService\Service.cs.t4</FileName>
+      <FileName>CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.cs.t4</FileName>
       <PropertyName>Host</PropertyName>
       <Value>VisualStudio</Value>
     </TransformationPropertyValue>

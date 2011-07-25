@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyMvcSample.Common.Mvc;
 using MyMvcSample.Domain.Entities;
 using MyMvcSample.Models;
 
 namespace MyMvcSample.Controllers
 {   
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         private readonly IProductService _productService;
         

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyMvcSample.Common.Mvc;
 <# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
 using <#= Model.ModelTypeNamespace #>;
 <# } #>
@@ -30,7 +31,7 @@ namespace <#= Model.ControllerNamespace #>
     var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
     var routingName = Regex.Replace(Model.ControllerName, "Controller$", "", RegexOptions.IgnoreCase);
 #>
-    public class <#= Model.ControllerName #> : Controller
+    public class <#= Model.ControllerName #> : BaseController
     {
         private readonly I<#= serviceName #> _<#= serviceVariableName #>;
         <# if(Model.NoIoc) { #>

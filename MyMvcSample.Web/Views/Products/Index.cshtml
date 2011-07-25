@@ -15,6 +15,9 @@
         <th>
             Name
         </th>
+        <th>
+            Price
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -26,6 +29,9 @@
         </td>
         <td>
 			@item.Name
+        </td>
+        <td>
+			@String.Format("{0:F}", item.Price)
         </td>
     </tr>
 }

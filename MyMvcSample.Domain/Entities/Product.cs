@@ -1,9 +1,28 @@
-﻿using MyMvcSample.Common.Domain;
+﻿using System;
+using MyMvcSample.Common.Domain;
 
 namespace MyMvcSample.Domain.Entities
 {
     public class Product : BaseEntity
     {
-        public string Name { get; set; }
+        private static int _privateIntVar;
+        private int _anotherPrivateIntVar;
+
+        public string Name { get; protected set; }
+
+        public decimal Price { get; set; }
+
+        public int AnotherPrivateIntVar
+        {
+            private get { return _anotherPrivateIntVar; }
+            set { _anotherPrivateIntVar = value; }
+        }
+
+        public void NameAsMethod()
+        {
+            
+        }
+
+        private bool PrivateName { get; set; }
     }
 }

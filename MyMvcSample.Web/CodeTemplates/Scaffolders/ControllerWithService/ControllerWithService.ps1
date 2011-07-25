@@ -14,6 +14,7 @@ param(
     [switch]$NoIoc = $false,    
     [switch]$NoChildItems = $false,    
     [string[]]$TemplateFolders,
+    [switch]$CreateViewModels = $false,
     [switch]$Force = $false,
     [string]$ForceMode
 )
@@ -128,6 +129,25 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     RelatedEntities = $relatedEntities;
     NoIoc = $NoIoc.IsPresent;
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
+
+if($CreateViewModels) {
+
+       Add-ProjectItemViaTemplate "Controllers\ProductViewModel" -Template "CreateViewModel" -Model @{
+        ControllerName = $ControllerName;
+        ModelType = [MarshalByRefObject]$foundModelType; 
+        PrimaryKey = [string]$primaryKey; 
+        DefaultNamespace = $defaultNamespace; 
+        AreaNamespace = $areaNamespace; 
+        DbContextNamespace = $dbContextNamespace;
+        RepositoriesNamespace = $repositoriesNamespace;
+        ModelTypeNamespace = $modelTypeNamespace; 
+        ControllerNamespace = $controllerNamespace; 
+        DbContextType = [MarshalByRefObject]$foundDbContextType;    
+        ModelTypePluralized = [string]$modelTypePluralized;    
+        RelatedEntities = $relatedEntities;
+        NoIoc = $NoIoc.IsPresent;
+    } -SuccessMessage "Added View Models {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
+}
 
 if (!$NoChildItems) {
     $controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($ControllerName, "Controller$", "", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)

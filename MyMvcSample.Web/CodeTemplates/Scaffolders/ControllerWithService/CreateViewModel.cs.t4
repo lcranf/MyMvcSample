@@ -1,0 +1,60 @@
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="EnvDTE" #>
+using MyMvcSample.Common.Repository;
+using MyMvcSample.Common.Service;
+using MyMvcSample.Domain.Db;
+using MyMvcSample.Domain.Entities;
+
+namespace MyMvcSample.Controllers
+{
+  <#  
+    var modelType = (CodeType)Model.ModelType;
+    var publicProperties = (IEnumerable)modelType.VisibleMembers().OfType<CodeProperty>()
+                                                 .Where(prop =>
+                                                        prop.Access == vsCMAccess.vsCMAccessPublic &&
+                                                        prop.Getter != null &&
+                                                        prop.Getter.Access == vsCMAccess.vsCMAccessPublic);    
+    var modelName = modelType.Name;	 
+  #>
+    public class <#= modelName #>CreateModel
+    {
+        <# foreach(CodeProperty property in publicProperties) { 
+        
+           var setterProperty = GetFunctionAsString(property.Setter);
+        #>
+       
+        public <#= property.Type.AsString #> <#= property.Name #> { get; <#= setterProperty #> }
+        <# } #>
+
+    }
+}
+
+<#+
+    string GetFunctionAsString(CodeFunction func) {
+
+        var function = "{0} set;";
+
+        if(func == null) return "private set;";
+
+        switch (func.Access)
+        {		    
+            case vsCMAccess.vsCMAccessPrivate:
+              return string.Format(function, "private");
+              break;
+            case vsCMAccess.vsCMAccessProject:
+            case vsCMAccess.vsCMAccessProtected:
+            case vsCMAccess.vsCMAccessDefault:
+              return string.Format(function, "protected");
+              break;
+            default:
+              return "set;";
+              break;
+        }        
+}
+#>
