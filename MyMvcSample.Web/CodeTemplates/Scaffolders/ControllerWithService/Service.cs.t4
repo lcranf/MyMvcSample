@@ -1,0 +1,32 @@
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="EnvDTE" #>
+using MyMvcSample.Common.Repository;
+using MyMvcSample.Common.Service;
+using MyMvcSample.Domain.Db;
+using MyMvcSample.Domain.Entities;
+
+namespace MyMvcSample.Controllers
+{
+  <#  
+    var modelType = (CodeType)Model.ModelType; 
+    var modelName = modelType.Name;	 
+  #>
+
+    public interface I<#= modelName #>Service : ICrudService<<#= modelName #>> {}
+
+    public class <#= modelName #>Service : CrudService<<#= modelName #>>, I<#= modelName #>Service
+    {
+        <#= Model.NoIoc #>
+        
+        public <#= modelName #>Service()
+            : this(new Repository<<#= modelName#>>(new DbContextRegistry())) {}
+        
+        public <#= modelName #>Service(IRepository<<#= modelName #>> repository) 
+            : base(repository) {}
+    }
+}

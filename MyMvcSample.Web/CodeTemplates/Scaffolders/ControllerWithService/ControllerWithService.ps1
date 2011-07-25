@@ -9,10 +9,11 @@ param(
     [string]$ViewScaffolder = "View",
     [alias("MasterPage")]$Layout,
     [alias("ContentPlaceholderIDs")][string[]]$SectionNames,
-    [alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,
+    [alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,    
     [switch]$ReferenceScriptLibraries = $false,
+    [switch]$UseIoc = $true,
     [switch]$Repository = $false,
-    [switch]$NoChildItems = $false,
+    [switch]$NoChildItems = $false,    
     [string[]]$TemplateFolders,
     [switch]$Force = $false,
     [string]$ForceMode
@@ -80,6 +81,8 @@ $primaryKey = Get-PrimaryKey $foundModelType.FullName -Project $Project -ErrorIf
 if (!$primaryKey) { return }
 
 $outputPath = Join-Path Controllers $ControllerName
+$serviceName = $ModelType + "Service"
+$servicePath = Join-Path Controllers  $serviceName
 # We don't create areas here, so just ensure that if you specify one, it already exists
 if ($Area) {
     $areaPath = Join-Path Areas $Area
@@ -102,7 +105,20 @@ $modelTypePluralized = Get-PluralizedWord $foundModelType.Name
 $relatedEntities = [Array](Get-RelatedEntities $foundModelType.FullName -Project $project)
 if (!$relatedEntities) { $relatedEntities = @() }
 
-$templateName = if($Repository) { "ControllerWithRepository" } else { "ControllerWithContext" }
+Write-Host "Service Path: $servicePath"
+
+#Add Service
+Add-ProjectItemViaTemplate $servicePath -Template "Service" -Model @{
+   ModelType = [MarshalByRefObject]$foundModelType;
+   DefaultNamespace = $defaultNamespace;
+   ModelTypeNs = $modelTypeNamespace;
+   NoIoc = $UseIoc.IsPresent;
+} -SuccessMessage "Added Service {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
+
+
+# Add Controller
+$templateName = "ControllerWithService"
+
 Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     ControllerName = $ControllerName;
     ModelType = [MarshalByRefObject]$foundModelType; 
@@ -115,7 +131,7 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     ControllerNamespace = $controllerNamespace; 
     DbContextType = [MarshalByRefObject]$foundDbContextType;
     Repository = $repositoryName; 
-    ModelTypePluralized = [string]$modelTypePluralized; 
+    ModelTypePluralized = [string]$modelTypePluralized;    
     RelatedEntities = $relatedEntities;
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 

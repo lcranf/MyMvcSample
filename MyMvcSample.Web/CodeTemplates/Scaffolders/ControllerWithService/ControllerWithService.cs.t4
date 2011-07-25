@@ -22,7 +22,9 @@ namespace <#= Model.ControllerNamespace #>
 <#  
     var modelType = (CodeType)Model.ModelType; 
     var modelName = modelType.Name; 
-    var modelNamePlural = Model.ModelTypePluralized; 
+    var modelNamePlural = Model.ModelTypePluralized;
+    var serviceName = modelName + "Service";
+    var serviceVariableName = modelName.ToLower() + "Service";
     var modelVariable = modelName.ToLower(); 
     var relatedEntities = ((IEnumerable)Model.RelatedEntities).OfType<RelatedEntityInfo>();
     var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
@@ -30,20 +32,17 @@ namespace <#= Model.ControllerNamespace #>
 #>
     public class <#= Model.ControllerName #> : Controller
     {
-<# foreach(var repository in Repositories.Values) { #>
-        private readonly I<#= repository.RepositoryTypeName #> <#= repository.VariableName #>;
-<# } #>
+        private readonly I<#= serviceName #> _<#= serviceVariableName #>;
 
         // If you are using Dependency Injection, you can delete the following constructor
-        public <#= Model.ControllerName #>() : this(<#= String.Join(", ", Repositories.Values.Select(x => "new " + x.RepositoryTypeName + "()")) #>)
+        public <#= Model.ControllerName #>() : this(new <#= serviceName #>())
         {
         }
 
-        public <#= Model.ControllerName #>(<#= String.Join(", ", Repositories.Values.Select(x => "I" + x.RepositoryTypeName + " " + x.VariableName)) #>)
+        public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #>)
         {
-<# foreach(var repository in Repositories.Values) { #>
-            this.<#= repository.VariableName #> = <#= repository.VariableName #>;
-<# } #>
+            _<#= serviceVariableName #> = <#= serviceVariableName #>;
+
         }
 
         //
@@ -51,22 +50,15 @@ namespace <#= Model.ControllerNamespace #>
 
         public ViewResult Index()
         {
-<#
-    var propertiesToInclude = relatedEntities.Select(relation => relation.LazyLoadingProperty).Where(x => x != null);
-    var includeExpression = String.Join(", ", propertiesToInclude.Select(x => String.Format("{0} => {0}.{1}", modelVariable, x.Name)));
-    if (!string.IsNullOrEmpty(includeExpression)) {
-        includeExpression = "Including(" + includeExpression + ")";
-    }
-#>
-            return View(<#= Repositories[modelType.FullName].VariableName #>.All<#= includeExpression #>);
+            return View(_<#= serviceVariableName #>.FindAll());
         }
 
         //
         // GET: /<#= routingName #>/Details/5
 
-        public ViewResult Details(<#= primaryKeyProperty.Type.AsString #> id)
+        public ViewResult Details(<#= modelName #> id)
         {
-            return View(<#= Repositories[modelType.FullName].VariableName #>.Find(id));
+            return View(id);
         }
 
         //
@@ -74,9 +66,6 @@ namespace <#= Model.ControllerNamespace #>
 
         public ActionResult Create()
         {
-<# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-            ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = <#= Repositories[relatedEntity.RelatedEntityType.FullName].VariableName #>.All;
-<# } #>
             return View();
         } 
 
@@ -86,53 +75,47 @@ namespace <#= Model.ControllerNamespace #>
         [HttpPost]
         public ActionResult Create(<#= modelName #> <#= modelVariable #>)
         {
-            if (ModelState.IsValid) {
-                <#= Repositories[modelType.FullName].VariableName #>.InsertOrUpdate(<#= modelVariable #>);
-                <#= Repositories[modelType.FullName].VariableName #>.Save();
+            if (ModelState.IsValid)
+            {
+                _<#=serviceVariableName #>.Create(<#= modelVariable #>);
+                
                 return RedirectToAction("Index");
-            } else {
-<# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-                ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = <#= Repositories[relatedEntity.RelatedEntityType.FullName].VariableName #>.All;
-<# } #>
-                return View();
             }
+            
+            return View();
+            
         }
         
         //
         // GET: /<#= routingName #>/Edit/5
  
-        public ActionResult Edit(<#= primaryKeyProperty.Type.AsString #> id)
+        public ActionResult Edit(<#= modelName #> id)
         {
-<# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-            ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = <#= Repositories[relatedEntity.RelatedEntityType.FullName].VariableName #>.All;
-<# } #>
-             return View(<#= Repositories[modelType.FullName].VariableName #>.Find(id));
+             return View(id);
         }
 
         //
         // POST: /<#= routingName #>/Edit/5
 
-        [HttpPost]
-        public ActionResult Edit(<#= modelName #> <#= modelVariable #>)
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditPosted(<#= modelName #> <#= modelVariable #>)
         {
-            if (ModelState.IsValid) {
-                <#= Repositories[modelType.FullName].VariableName #>.InsertOrUpdate(<#= modelVariable #>);
-                <#= Repositories[modelType.FullName].VariableName #>.Save();
+            if (ModelState.IsValid)
+            {
+                _<#=serviceVariableName #>.Update(<#= modelVariable #>);
                 return RedirectToAction("Index");
-            } else {
-<# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-                ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = <#= Repositories[relatedEntity.RelatedEntityType.FullName].VariableName #>.All;
-<# } #>
-                return View();
             }
+             
+            return View(<#= modelVariable #>);
+            
         }
 
         //
         // GET: /<#= routingName #>/Delete/5
  
-        public ActionResult Delete(<#= primaryKeyProperty.Type.AsString #> id)
+        public ActionResult Delete(<#= modelName #> id)
         {
-            return View(<#= Repositories[modelType.FullName].VariableName #>.Find(id));
+            return View(id);
         }
 
         //
@@ -141,8 +124,7 @@ namespace <#= Model.ControllerNamespace #>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(<#= primaryKeyProperty.Type.AsString #> id)
         {
-            <#= Repositories[modelType.FullName].VariableName #>.Delete(id);
-            <#= Repositories[modelType.FullName].VariableName #>.Save();
+            _<#=serviceVariableName #>.Delete(id);
 
             return RedirectToAction("Index");
         }
