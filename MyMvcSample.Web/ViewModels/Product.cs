@@ -15,9 +15,6 @@ namespace MyMvcSample.Controllers
         public MyMvcSample.Domain.Entities.Order Order { get; set; }
         
         public int AnotherPrivateIntVar { get; set; }
-        
-        0
-        
-    }
+            }
 }
 

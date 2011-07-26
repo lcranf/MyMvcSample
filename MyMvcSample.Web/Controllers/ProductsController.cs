@@ -13,11 +13,6 @@ namespace MyMvcSample.Controllers
     {
         private readonly IProductService _productService;
         
-        // If you are using Dependency Injection, you can delete the following constructor
-        public ProductsController() : this(new ProductService())
-        {
-        }
-        
         public ProductsController(IProductService productService)
         {
             _productService = productService;

@@ -81,10 +81,8 @@
     <Compile Include="App_Start\NinjectMVC3.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\ProductCreateModel.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductService.cs" />
-    <Compile Include="Controllers\ProductViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -98,6 +96,7 @@
     <Compile Include="ViewModels\OrderCreateModel.cs" />
     <Compile Include="ViewModels\OrderEditModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\Product.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -168,6 +167,8 @@
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\CreateViewModel.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\Service.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\ViewModels\ViewModels.ps1" />
+    <None Include="CodeTemplates\Scaffolders\ViewModels\ViewModelsTemplate.cs.t4" />
     <None Include="readme.txt" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
