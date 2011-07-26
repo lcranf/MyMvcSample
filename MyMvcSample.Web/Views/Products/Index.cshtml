@@ -18,6 +18,12 @@
         <th>
             Price
         </th>
+        <th>
+            Order
+        </th>
+        <th>
+            AnotherPrivateIntVar
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -32,6 +38,12 @@
         </td>
         <td>
 			@String.Format("{0:F}", item.Price)
+        </td>
+        <td>
+			@(item.Order == null ? "None" : item.Order.Name)
+        </td>
+        <td>
+			@item.AnotherPrivateIntVar
         </td>
     </tr>
 }

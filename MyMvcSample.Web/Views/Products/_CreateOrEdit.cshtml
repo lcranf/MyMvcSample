@@ -10,3 +10,11 @@
     @Html.ValidationMessageFor(model => model.Price)
 </div>
 
+<div class="editor-label">
+    @Html.LabelFor(model => model.AnotherPrivateIntVar)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.AnotherPrivateIntVar)
+    @Html.ValidationMessageFor(model => model.AnotherPrivateIntVar)
+</div>
+

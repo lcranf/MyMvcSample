@@ -14,6 +14,12 @@
 
     <div class="display-label">Price</div>
     <div class="display-field">@String.Format("{0:F}", Model.Price)</div>
+
+    <div class="display-label">Order</div>
+    <div class="display-field">@(Model.Order == null ? "None" : Model.Order.Name)</div>
+
+    <div class="display-label">AnotherPrivateIntVar</div>
+    <div class="display-field">@Model.AnotherPrivateIntVar</div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |

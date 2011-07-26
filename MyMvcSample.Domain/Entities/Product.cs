@@ -12,9 +12,11 @@ namespace MyMvcSample.Domain.Entities
 
         public decimal Price { get; set; }
 
+        public Order Order { get; set; }
+
         public int AnotherPrivateIntVar
         {
-            private get { return _anotherPrivateIntVar; }
+            get { return _anotherPrivateIntVar; }
             set { _anotherPrivateIntVar = value; }
         }
 
