@@ -21,7 +21,7 @@ using <#= Model.RepositoriesNamespace #>;
 namespace <#= Model.ControllerNamespace #>
 {   
 <#  
-    var modelType = (CodeType)Model.ModelType; 
+    var modelType = (CodeType)Model.ModelType; aaa
     var modelName = modelType.Name; 
     var modelNamePlural = Model.ModelTypePluralized;
     var serviceName = modelName + "Service";
