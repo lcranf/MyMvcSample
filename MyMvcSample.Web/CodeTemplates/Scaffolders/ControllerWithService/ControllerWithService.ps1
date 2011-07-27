@@ -96,9 +96,9 @@ $controllerNamespace = [T4Scaffolding.Namespaces]::Normalize($defaultNamespace +
 $areaNamespace = if ($Area) { [T4Scaffolding.Namespaces]::Normalize($defaultNamespace + ".Areas.$Area") } else { $defaultNamespace }
 $dbContextNamespace = $foundDbContextType.Namespace.FullName
 $repositoriesNamespace = [T4Scaffolding.Namespaces]::Normalize($areaNamespace + ".Models")
-$viewModelsNamespace = [T4Scaffolding.Namespaces]::Normalize($areaNamespace + ".ViewModels." + $foundModelType.Name)
-$viewModelsPath = Join-Path ViewModels $foundModelType.Name
+$viewModelsNamespace = [T4Scaffolding.Namespaces]::Normalize($areaNamespace + ".ViewModels")
 $modelTypePluralized = Get-PluralizedWord $foundModelType.Name
+$viewModelsPath = Join-Path ViewModels $modelTypePluralized
 $relatedEntities = [Array](Get-RelatedEntities $foundModelType.FullName -Project $project)
 if (!$relatedEntities) { $relatedEntities = @() }
 
@@ -133,24 +133,7 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 
 if($CreateViewModels) {
-
-       Scaffold ViewModels -ModelName $foundModelType.FullName -Area $Area -AreaNamespace $areaNamespace -DefaultNamespace $defaultNamespace -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
-       
-       Add-ProjectItemViaTemplate $viewModelsPath -Template "CreateViewModel" -Model @{
-        ControllerName = $ControllerName;
-        ModelType = [MarshalByRefObject]$foundModelType; 
-        PrimaryKey = [string]$primaryKey; 
-        DefaultNamespace = $defaultNamespace; 
-        AreaNamespace = $areaNamespace; 
-        DbContextNamespace = $dbContextNamespace;
-        RepositoriesNamespace = $repositoriesNamespace;
-        ModelTypeNamespace = $modelTypeNamespace; 
-        ControllerNamespace = $controllerNamespace; 
-        DbContextType = [MarshalByRefObject]$foundDbContextType;    
-        ModelTypePluralized = [string]$modelTypePluralized;    
-        RelatedEntities = $relatedEntities;
-        NoIoc = $NoIoc.IsPresent;
-    } -SuccessMessage "Added View Models {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
+       Scaffold ViewModels -ModelFullName $foundModelType.FullName -ModelName $foundModelType.Name -ModelPluralized $modelTypePluralized -Area $Area -AreaNamespace $areaNamespace -ModelNamespace $modelTypeNamespace -ViewModelNamespace $viewModelsNamespace -PrimaryKey = $primaryKey -ViewModelOutputPath $viewModelsPath -DefaultNamespace $defaultNamespace -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController       
 }
 
 if (!$NoChildItems) {

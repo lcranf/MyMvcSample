@@ -96,7 +96,8 @@
     <Compile Include="ViewModels\OrderCreateModel.cs" />
     <Compile Include="ViewModels\OrderEditModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
-    <Compile Include="ViewModels\Product.cs" />
+    <Compile Include="ViewModels\Products\ProductCreateModel.cs" />
+    <Compile Include="ViewModels\Products\ProductEditModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -165,10 +166,9 @@
     <Content Include="packages.config" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.ps1" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.cs.t4" />
-    <None Include="CodeTemplates\Scaffolders\ControllerWithService\CreateViewModel.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\Service.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\ViewModels\Model.Template.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ViewModels\ViewModels.ps1" />
-    <None Include="CodeTemplates\Scaffolders\ViewModels\ViewModelsTemplate.cs.t4" />
     <None Include="readme.txt" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />

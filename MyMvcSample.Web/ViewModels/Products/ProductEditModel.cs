@@ -3,10 +3,13 @@ using MyMvcSample.Common.Service;
 using MyMvcSample.Domain.Db;
 using MyMvcSample.Domain.Entities;
 
-namespace MyMvcSample.Controllers
+namespace MyMvcSample.ViewModels.Products
 {
-      public class ProductCreateModel
+  
+    public class ProductEditModel
     {
+        
+        public int Id { get; set; }
         
         public string Name { get; protected set; }
         
@@ -15,6 +18,7 @@ namespace MyMvcSample.Controllers
         public MyMvcSample.Domain.Entities.Order Order { get; set; }
         
         public int AnotherPrivateIntVar { get; set; }
-            }
+        
+    }
 }
 
