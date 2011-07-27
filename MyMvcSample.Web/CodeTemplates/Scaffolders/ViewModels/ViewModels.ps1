@@ -17,17 +17,6 @@ param(
 	[switch]$Force = $false
 )
 
-Write-Host "Project: $Project"
-Write-Host "Model Full Name: $ModelFullName"
-Write-Host "Model Name: $ModelName"
-Write-Host "Area: $Area"
-Write-Host "Area Namespace: $AreaNamespace"
-Write-Host "View Model Ouput Path: $ViewModelOutputPath"
-Write-Host "Primary Key: $PrimaryKey"
-Write-Host "Model Namespace: $ModelNamespace"
-Write-Host "Default Namespace: $DefaultNamespace"
-Write-Host "View Model Namespace: $ViewModelNamespace"
-Write-Host "Model Pluralized: $ModelPluralized"
 
 # If you have specified a model type
 $foundModelType = Get-ProjectType $ModelName -Project $Project -BlockUi
@@ -37,10 +26,33 @@ if (!$foundModelType)
    return
 }
 
+$baseModelFileName = "Base" + $ModelName + "Model"
+$outputPath = Join-Path $viewModelOutputPath $baseModelFileName
+
+Write-Host "Building $baseModelFileName"
+
+# Create BaseEntityModel 
+Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{        
+        ModelType = [MarshalByRefObject]$foundModelType; 
+        PrimaryKey = [string]$primaryKey; 
+        DefaultNamespace = $defaultNamespace; 
+        AreaNamespace = $AreaNamespace;
+        ModelTypeNamespace = $modelTypeNamespace;
+        ModelTypePluralized = [string]$modelTypePluralized;    
+        RelatedEntities = $relatedEntities;
+        ClassName = $baseModelFileName;
+        IsBaseClass = $True;
+        IsEditable = $True;
+        IncludePrimaryKey = $True;
+        SkipAllProperties = $False;
+    } -SuccessMessage "Added Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
+
 $createModelFileName = $ModelName + "CreateModel"
 $outputPath = Join-Path $viewModelOutputPath $createModelFileName
 $namespace = (Get-Project $Project).Properties.Item("DefaultNamespace").Value
 $defaultNamespace = $ViewModelNamespace + "." + $ModelPluralized
+ 
+Write-Host "Building $createModelFileName"
  
 # Create EntityCreateModel 
 Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{        
@@ -52,12 +64,17 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
         ModelTypePluralized = [string]$modelTypePluralized;    
         RelatedEntities = $relatedEntities;   
         ClassName = $createModelFileName;
+        BaseClassName = $baseModelFileName;
+        IsBaseClass = $False;
+        IsEditable = $False;        
         IncludePrimaryKey = $False;
         SkipAllProperties = $True;
-    } -SuccessMessage "Added Create Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
+    } -SuccessMessage "Added Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
 
 $editModelFileName = $ModelName + "EditModel"
 $outputPath = Join-Path $viewModelOutputPath $editModelFileName
+
+Write-Host "Building $editModelFileName"
 
 # Create EntityEditModel 
 Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{        
@@ -69,6 +86,9 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
         ModelTypePluralized = [string]$modelTypePluralized;    
         RelatedEntities = $relatedEntities;
         ClassName = $editModelFileName;
+        BaseClassName = $baseModelFileName;
+        IsBaseClass = $False;
+        IsEditable = $True;
         IncludePrimaryKey = $True;
         SkipAllProperties = $False;
-    } -SuccessMessage "Added Edit Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
+    } -SuccessMessage "Added Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force   

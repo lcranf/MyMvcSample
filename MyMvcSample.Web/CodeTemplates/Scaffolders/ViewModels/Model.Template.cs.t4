@@ -11,19 +11,25 @@ namespace <#= Model.DefaultNamespace #>
 {
   <#  
     var modelType = (CodeType)Model.ModelType;
-    var modelName = modelType.Name;
-    var possiblePrimaryKeys = (Model.IncludePrimaryKey) ? new string[] {} : new string[] { "Id", modelName + "Id" };
+    var modelName = modelType.Name;	
+    var possiblePrimaryKeys = (!(Model.IsBaseClass) && Model.IsEditable) ? new string[] {} : new string[] { "Id", modelName + "Id" };
     var relatedEntities = ((IEnumerable)Model.RelatedEntities).OfType<RelatedEntityInfo>();	
     var publicProperties = (IEnumerable)modelType.VisibleMembers().OfType<CodeProperty>()
                                                  .Where(prop =>
                                                         prop.Access == vsCMAccess.vsCMAccessPublic &&
                                                         prop.Getter != null &&
                                                         prop.Getter.Access == vsCMAccess.vsCMAccessPublic &&
-                                                        !possiblePrimaryKeys.Contains(prop.Name) && !Model.SkipAllProperties);
-    
+                                                        !possiblePrimaryKeys.Contains(prop.Name) && Model.IsEditable);
+    var extendedBaseClass = (!Model.IsBaseClass) ? ": " + Model.BaseClassName : string.Empty;
+    if(!(Model.IsBaseClass) && publicProperties.OfType<CodeProperty>().Any())
+    {
+       var keys = new string[] { "Id", modelName + "Id" };
+       
+       publicProperties = publicProperties.OfType<CodeProperty>().Where(prop => keys.Contains(prop.Name));
+    }
   #>
 
-    public class <#= Model.ClassName #>
+    public <#=  (Model.IsBaseClass) ? "abstract " : string.Empty #>class <#= Model.ClassName #> <#= extendedBaseClass #>
     {
         <# foreach(CodeProperty property in publicProperties) { #>
 

@@ -96,6 +96,7 @@
     <Compile Include="ViewModels\OrderCreateModel.cs" />
     <Compile Include="ViewModels\OrderEditModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\Products\BaseProductModel.cs" />
     <Compile Include="ViewModels\Products\ProductCreateModel.cs" />
     <Compile Include="ViewModels\Products\ProductEditModel.cs" />
   </ItemGroup>
