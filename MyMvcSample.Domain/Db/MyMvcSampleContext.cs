@@ -24,6 +24,10 @@ namespace MyMvcSample.Domain.Db
 
         public DbSet<OrderLineItem> OrderLineItems { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

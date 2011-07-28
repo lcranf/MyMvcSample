@@ -76,9 +76,16 @@ namespace MyMvcSample.Common.Service
             return Repository.QueryBy();
         }
 
-        public virtual IQueryable<TEntity> QueryBy(Expression<Func<TEntity, bool>> criteria)
+        public virtual IQueryable<TEntity> QueryBy(Expression<Func<TEntity, bool>> criteria = null)
         {
-            return Repository.QueryBy().Where(criteria);
+            var queryable = Repository.QueryBy();
+
+            return criteria != null ? queryable.Where(criteria) : queryable;
+        }
+
+        public IQueryable<TEntity> QueryByIncludeProperties(params Expression<Func<TEntity, object>>[] includProperties)
+        {
+            return Repository.QueryByIncluding(includProperties);
         }
     }
 }

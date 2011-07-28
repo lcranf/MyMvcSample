@@ -21,6 +21,13 @@ namespace MyMvcSample.Common.Repository
             DbSetOfEntities = DbContext.Set<TEntity>();
         }
 
+        public TEntity Attach(TEntity entity)
+        {
+            DbSetOfEntities.Attach(entity);
+
+            return entity;
+        }
+
         public TEntity Create(TEntity entity)
         {
             return DbSetOfEntities.Add(entity);
@@ -58,6 +65,18 @@ namespace MyMvcSample.Common.Repository
         public IQueryable<TEntity> QueryBy()
         {
             return DbSetOfEntities;
+        }
+
+        public IQueryable<TEntity> QueryByIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = DbSetOfEntities;
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query;
         }
 
         public TEntity FindById(int entityId)

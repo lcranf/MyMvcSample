@@ -28,5 +28,7 @@ namespace MyMvcSample.Common.Service
         IQueryable<TEntity> FindAll();
 
         IQueryable<TEntity> QueryBy(Expression<Func<TEntity, bool>> criteria);
+
+        IQueryable<TEntity> QueryByIncludeProperties(params Expression<Func<TEntity, object>>[] includProperties);
     }
 }

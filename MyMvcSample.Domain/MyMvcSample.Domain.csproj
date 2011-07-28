@@ -60,6 +60,7 @@
     <Compile Include="Db\MyMvcSampleContext.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderLineItem.cs" />
+    <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

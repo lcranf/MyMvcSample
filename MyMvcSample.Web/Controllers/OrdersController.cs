@@ -10,10 +10,12 @@ namespace MyMvcSample.Controllers
     public class OrdersController : BaseController
     {
         private readonly IOrderService _orderService;
+        private readonly IOrderStatusService _orderStatusService;
 
-        public OrdersController(IOrderService orderService)
+        public OrdersController(IOrderService orderService, IOrderStatusService orderStatusService)
         {
             _orderService = orderService;
+            _orderStatusService = orderStatusService;
         }
 
         //
@@ -21,7 +23,7 @@ namespace MyMvcSample.Controllers
 
         public ViewResult Index()
         {
-            return View(_orderService.FindAll().MapListTo(new OrderViewModel()));
+            return View(_orderService.QueryByIncludeProperties(o => o.OrderStatus, o => o.OrderItems));
         }
 
         //
@@ -37,7 +39,11 @@ namespace MyMvcSample.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var model = new OrderCreateModel();
+
+            model.OrderStatuses = _orderStatusService.FindAll().ToSelectItems();
+
+            return View(model);
         } 
 
         //

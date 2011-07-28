@@ -21,3 +21,11 @@
     @Html.ValidationMessageFor(model => model.OrderDate)
 </div>
 
+<div class="editor-label">
+    @Html.LabelFor(model => model.OrderStatusId)
+</div>
+
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.OrderStatusId, Model.OrderStatuses)
+    @Html.ValidationMessageFor(model => model.OrderStatusId)
+</div>
