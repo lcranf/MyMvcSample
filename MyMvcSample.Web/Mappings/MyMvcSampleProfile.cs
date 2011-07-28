@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MyMvcSample.Common.Mappings;
 using MyMvcSample.Domain.Entities;
 using MyMvcSample.ViewModels;
 
@@ -14,13 +15,14 @@ namespace MyMvcSample.Mappings
             CreateMap<Order, OrderCreateModel>();
 
             CreateMap<OrderEditModel, Order>()
+
                 .ForMember(o => o.CreatedBy, config => config.Ignore())
                 .ForMember(o => o.CreatedOn, config => config.Ignore())
                 .ForMember(o => o.UpdatedBy, config => config.Ignore())
                 .ForMember(o => o.UpdatedOn, config => config.Ignore());
 
+            CreateMap<int, OrderStatus>().ConvertUsing<IdToEntityTypeConverter<OrderStatus>>();
             CreateMap<OrderCreateModel, Order>();
-
         }
     }
 }

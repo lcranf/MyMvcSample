@@ -11,7 +11,7 @@ namespace MyMvcSample.ViewModels
         public string Name { get; set; }
 
         [Required]
-        public int OrderStatusId { get; set; }
+        public int OrderStatus { get; set; }
 
         public DateTime? OrderDate { get; set; }
 

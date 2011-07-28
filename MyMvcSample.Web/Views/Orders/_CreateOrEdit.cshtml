@@ -22,10 +22,10 @@
 </div>
 
 <div class="editor-label">
-    @Html.LabelFor(model => model.OrderStatusId)
+    @Html.LabelFor(model => model.OrderStatus)
 </div>
 
 <div class="editor-field">
-    @Html.DropDownListFor(model => model.OrderStatusId, Model.OrderStatuses, "Select Order Status")
-    @Html.ValidationMessageFor(model => model.OrderStatusId)
+    @Html.DropDownListFor(model => model.OrderStatus, Model.OrderStatuses, "Select Order Status")
+    @Html.ValidationMessageFor(model => model.OrderStatus)
 </div>

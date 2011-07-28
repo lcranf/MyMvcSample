@@ -21,9 +21,9 @@ namespace MyMvcSample.Common.Repository
             DbSetOfEntities = DbContext.Set<TEntity>();
         }
 
-        public TEntity Attach(TEntity entity)
+        public IEntity Attach(IEntity entity)
         {
-            DbSetOfEntities.Attach(entity);
+            DbSetOfEntities.Attach((TEntity) entity);
 
             return entity;
         }

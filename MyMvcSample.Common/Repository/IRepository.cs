@@ -6,10 +6,9 @@ using MyMvcSample.Common.Domain;
 
 namespace MyMvcSample.Common.Repository
 {
-    public interface IRepository<TEntity> : IReadOnlyRepository
+    public interface IRepository<TEntity> : IReadOnlyRepository, IAttachableRepository
         where TEntity : IEntity
     {
-        TEntity Attach(TEntity entity);
         TEntity Create(TEntity entity);
         TEntity CreateOrUpdate(TEntity entity);
         TEntity Update(TEntity entity);

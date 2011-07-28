@@ -40,7 +40,7 @@ namespace MyMvcSample.Controllers
 
         public ActionResult Create()
         {
-            var model = new OrderCreateModel { OrderStatusId = -1 };
+            var model = new OrderCreateModel { OrderStatus = -1 };
 
             model.OrderStatuses = _orderStatusService.FindAll().ToSelectItems();
 
