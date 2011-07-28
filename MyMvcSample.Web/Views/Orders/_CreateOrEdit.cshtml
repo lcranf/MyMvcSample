@@ -26,6 +26,6 @@
 </div>
 
 <div class="editor-field">
-    @Html.DropDownListFor(model => model.OrderStatusId, Model.OrderStatuses)
+    @Html.DropDownListFor(model => model.OrderStatusId, Model.OrderStatuses, "Select Order Status")
     @Html.ValidationMessageFor(model => model.OrderStatusId)
 </div>

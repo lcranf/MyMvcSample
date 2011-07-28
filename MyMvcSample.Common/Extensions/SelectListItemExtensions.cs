@@ -11,26 +11,13 @@ namespace MyMvcSample.Common.Extensions
             where T : BaseReferenceEntity
         {
             if (items.IsNullOrEmpty()) return Enumerable.Empty<SelectListItem>();
-
-            //generate a display name
-            var displayLabel = "Select " + typeof (T).Name.DisplayName();
-            var displaySelectItem = new SelectListItem
-                                        {
-                                            Value = "-1",
-                                            Text = displayLabel,
-                                            Selected = (selectedItem == -1)
-                                        };
             
-            var selectList = items.Select(i => new SelectListItem
+            return items.Select(i => new SelectListItem
                                         {
                                             Text = i.Name,
                                             Value = i.Id.ToString(),
                                             Selected = i.Id.Equals(selectedItem)
-                                        }).ToList();
-
-            selectList.Add(displaySelectItem);
-
-            return selectList;
+                                        });
         }
     }
 }

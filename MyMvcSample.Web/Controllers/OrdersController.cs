@@ -23,6 +23,7 @@ namespace MyMvcSample.Controllers
 
         public ViewResult Index()
         {
+            //eager load dependencies to avoid N+1 select issues...
             return View(_orderService.QueryByIncludeProperties(o => o.OrderStatus, o => o.OrderItems));
         }
 
@@ -39,7 +40,7 @@ namespace MyMvcSample.Controllers
 
         public ActionResult Create()
         {
-            var model = new OrderCreateModel();
+            var model = new OrderCreateModel { OrderStatusId = -1 };
 
             model.OrderStatuses = _orderStatusService.FindAll().ToSelectItems();
 
@@ -68,8 +69,11 @@ namespace MyMvcSample.Controllers
         {
             //if meta data is needed then we'd either call IOrderServer
             //or rely on some IMetadataService to get data (ie, IOrderTypeService)
+            var model = id.MapTo(new OrderEditModel());
 
-             return View(id.MapTo(new OrderEditModel()));
+            model.OrderStatuses = _orderStatusService.FindAll().ToSelectItems();
+
+            return View(model);
         }
 
         //

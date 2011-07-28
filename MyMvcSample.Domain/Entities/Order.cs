@@ -15,7 +15,7 @@ namespace MyMvcSample.Domain.Entities
         public DateTime? OrderDate { get; set; }
 
         [Required]
-        public OrderStatus OrderStatus { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
 
         public virtual ICollection<OrderLineItem> OrderItems { get; set; }
 
