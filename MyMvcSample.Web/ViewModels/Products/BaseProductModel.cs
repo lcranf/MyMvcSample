@@ -1,5 +1,5 @@
 
-namespace MyMvcSample
+namespace MyMvcSample.ViewModels.Products
 {
   
     public abstract class BaseProductModel 

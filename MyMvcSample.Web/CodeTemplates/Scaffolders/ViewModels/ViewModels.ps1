@@ -26,6 +26,8 @@ if (!$foundModelType)
    return
 }
 
+$namespace = (Get-Project $Project).Properties.Item("DefaultNamespace").Value
+$defaultNamespace = $ViewModelNamespace + "." + $ModelPluralized
 $baseModelFileName = "Base" + $ModelName + "Model"
 $outputPath = Join-Path $viewModelOutputPath $baseModelFileName
 
@@ -49,8 +51,6 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
 
 $createModelFileName = $ModelName + "CreateModel"
 $outputPath = Join-Path $viewModelOutputPath $createModelFileName
-$namespace = (Get-Project $Project).Properties.Item("DefaultNamespace").Value
-$defaultNamespace = $ViewModelNamespace + "." + $ModelPluralized
  
 Write-Host "Building $createModelFileName"
  
