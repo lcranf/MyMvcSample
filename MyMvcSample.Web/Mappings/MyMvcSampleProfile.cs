@@ -22,6 +22,7 @@ namespace MyMvcSample.Mappings
                 .ForMember(o => o.UpdatedOn, config => config.Ignore());
 
             CreateMap<int, OrderStatus>().ConvertUsing<IdToEntityTypeConverter<OrderStatus>>();
+            CreateMap<OrderStatus, int>().ConvertUsing<EntityToIdTypeConverter<OrderStatus>>();
             CreateMap<OrderCreateModel, Order>();
         }
     }

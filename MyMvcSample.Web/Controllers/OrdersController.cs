@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Web.Mvc;
 using MyMvcSample.Common.Extensions;
 using MyMvcSample.Common.Mvc;
@@ -24,7 +25,8 @@ namespace MyMvcSample.Controllers
         public ViewResult Index()
         {
             //eager load dependencies to avoid N+1 select issues...
-            return View(_orderService.QueryByIncludeProperties(o => o.OrderStatus, o => o.OrderItems));
+            return View(_orderService.QueryByIncludeProperties(o => o.OrderStatus, o => o.OrderItems)
+                                     .OrderBy(o => o.Id));
         }
 
         //

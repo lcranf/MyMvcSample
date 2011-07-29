@@ -64,6 +64,7 @@
     <Compile Include="Extensions\MonadExtensions.cs" />
     <Compile Include="Extensions\SelectListItemExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Mappings\EntityToIdTypeConverter.cs" />
     <Compile Include="Mappings\IdToEntityTypeConverter.cs" />
     <Compile Include="ModelBinders\EntityModelBinder.cs" />
     <Compile Include="ModelBinders\IFilteredModelBinder.cs" />
