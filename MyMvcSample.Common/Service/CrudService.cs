@@ -11,7 +11,7 @@ namespace MyMvcSample.Common.Service
     public class CrudService<TEntity> : ICrudService<TEntity>
         where TEntity : class, IEntity, new()
     {
-        public IRepository<TEntity> Repository { get; set; }
+        protected IRepository<TEntity> Repository { get; set; }
 
         public CrudService(IRepository<TEntity> repository)
         {

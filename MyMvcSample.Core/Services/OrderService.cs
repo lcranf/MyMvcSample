@@ -8,5 +8,10 @@ namespace MyMvcSample.Core.Services
     {
         public OrderService(IRepository<Order> repository) 
             : base(repository) {}
+
+        public override bool Delete(int id)
+        {
+            return Repository.Delete(FindById(id));
+        }
     }
 }
