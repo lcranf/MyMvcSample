@@ -77,8 +77,7 @@ $primaryKey = Get-PrimaryKey $foundModelType.FullName -Project $Project -ErrorIf
 if (!$primaryKey) { return }
 
 $outputPath = Join-Path Controllers $ControllerName
-$serviceName = $ModelType + "Service"
-$servicePath = Join-Path Controllers  $serviceName
+
 # We don't create areas here, so just ensure that if you specify one, it already exists
 if ($Area) {
     $areaPath = Join-Path Areas $Area
@@ -102,16 +101,7 @@ $viewModelsPath = Join-Path ViewModels $modelTypePluralized
 $relatedEntities = [Array](Get-RelatedEntities $foundModelType.FullName -Project $project)
 if (!$relatedEntities) { $relatedEntities = @() }
 
-Write-Host "Service Path: $servicePath"
-
-#Add Service
-Add-ProjectItemViaTemplate $servicePath -Template "Service" -Model @{
-   ModelType = [MarshalByRefObject]$foundModelType;
-   DefaultNamespace = $defaultNamespace;
-   ModelTypeNs = $modelTypeNamespace;
-   NoIoc = $NoIoc.IsPresent;
-} -SuccessMessage "Added Service {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
-
+Scaffold Service -ModelName $foundModelType.Name -OutputPath "Controllers" -DefaultNamespace $defaultNamespace -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
 
 # Add Controller
 $templateName = "ControllerWithService"

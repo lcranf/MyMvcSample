@@ -12,23 +12,19 @@ using MyMvcSample.Domain.Entities;
 
 namespace MyMvcSample.Controllers
 {
-  <#  
-    var modelType = (CodeType)Model.ModelType; 
-    var modelName = modelType.Name;	 
+  <#
+    var modelType = (CodeType)Model.ModelType;
+    var modelName = modelType.Name;
   #>
-
-    public interface I<#= modelName #>Service : ICrudService<<#= modelName #>> {}
-
-    public class <#= modelName #>Service : CrudService<<#= modelName #>>, I<#= modelName #>Service
+  public class <#= modelName #>Service : CrudService<<#= modelName #>>, I<#= modelName #>Service
     {
         <# if(Model.NoIoc) { #>
-
-        // If you are using Dependency Injection, you can delete the following constructor   
+// If you are using Dependency Injection, you can delete the following constructor   
         public <#= modelName #>Service()
-            : this(new Repository<<#= modelName#>>(new DbContextRegistry())) {}  
+            : this(new Repository<<#= modelName#>>(new DbContextRegistry())) {}
+
         <# } #>
-     
-        public <#= modelName #>Service(IRepository<<#= modelName #>> repository) 
+public <#= modelName #>Service(IRepository<<#= modelName #>> repository) 
             : base(repository) {}
     }
 }
