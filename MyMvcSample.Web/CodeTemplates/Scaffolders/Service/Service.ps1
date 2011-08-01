@@ -13,12 +13,19 @@ param(
 	[switch]$Force = $false
 )
 
+
 # If you have specified a model type
 $foundModelType = Get-ProjectType $ModelName -Project $Project -BlockUi
 if (!$foundModelType) 
 {
    Write-Error "Model Name not found in project: $ModelName .  Please specify a ModelName!!!"  
    return
+}
+
+# If ServiceProject is omitted, then fallback to the default project provided by the NuGet Manager
+if(!$ServiceProject)
+{
+   $ServiceProject = $Project
 }
 
 $serviceInterface = "I" + $ModelName + "Service"
@@ -35,7 +42,7 @@ Add-ProjectItemViaTemplate $interfaceOutputPath -Template IService -Model @{
      ModelTypeNamespace = $modelTypeNamespace;
      NoIoc = $NoIoc.IsPresent;
   } -SuccessMessage "Added Service output at {0}" `
-	-TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
+	-TemplateFolders $TemplateFolders -Project $ServiceProject -CodeLanguage $CodeLanguage -Force:$Force
 
 $implementationOutputPath = Join-Path $OutputPath $serviceImplementation
 
@@ -49,4 +56,4 @@ Add-ProjectItemViaTemplate $implementationOutputPath -Template Service -Model @{
      ModelTypeNamespace = $modelTypeNamespace;
      NoIoc = $NoIoc.IsPresent;
   } -SuccessMessage "Added Service output at {0}" `
-	-TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
+	-TemplateFolders $TemplateFolders -Project $ServiceProject -CodeLanguage $CodeLanguage -Force:$Force

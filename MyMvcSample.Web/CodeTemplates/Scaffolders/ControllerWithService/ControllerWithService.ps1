@@ -101,7 +101,14 @@ $viewModelsPath = Join-Path ViewModels $modelTypePluralized
 $relatedEntities = [Array](Get-RelatedEntities $foundModelType.FullName -Project $project)
 if (!$relatedEntities) { $relatedEntities = @() }
 
-Scaffold Service -ModelName $foundModelType.Name -OutputPath "Controllers" -DefaultNamespace $defaultNamespace -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
+$serviceProject = (Get-Project *Core*).ProjectName
+
+if(!$serviceProject) {
+   Write-Warning "No Service Project found.  Falling back to default project"
+   $serviceProject = $Project
+}
+
+Scaffold Service -ModelName $foundModelType.Name -OutputPath "Services" -DefaultNamespace $defaultNamespace -Project $Project -ServiceProject $serviceProject -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
 
 # Add Controller
 $templateName = "ControllerWithService"

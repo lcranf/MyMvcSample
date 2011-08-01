@@ -10,7 +10,7 @@ using MyMvcSample.Common.Service;
 using MyMvcSample.Domain.Db;
 using MyMvcSample.Domain.Entities;
 
-namespace MyMvcSample.Controllers
+namespace <#= Model.DefaultNamespace #>
 {
   <#
     var modelType = (CodeType)Model.ModelType;

@@ -1,7 +1,7 @@
 using MyMvcSample.Common.Service;
 using MyMvcSample.Domain.Entities;
 
-namespace MyMvcSample.Controllers
+namespace MyMvcSample
 {
     public interface IProductService : ICrudService<Product>
     {
