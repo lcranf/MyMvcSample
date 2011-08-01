@@ -10,12 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MyMvcSample.Common.Mvc;
 <# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
 using <#= Model.ModelTypeNamespace #>;
 <# } #>
-<# if((!string.IsNullOrEmpty(Model.RepositoriesNamespace)) && (Model.RepositoriesNamespace != Model.ModelTypeNamespace)) { #>
-using <#= Model.RepositoriesNamespace #>;
+<# if(!string.IsNullOrEmpty(Model.ServiceNamespace)) { #>
+using <#= Model.ServiceNamespace #>;
+<# } #>
+<# if(!string.IsNullOrEmpty(Model.BaseControllerNamespace)) { #>
+using <#= Model.BaseControllerNamespace #>;
 <# } #>
 
 namespace <#= Model.ControllerNamespace #>

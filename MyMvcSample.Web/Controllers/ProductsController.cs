@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MyMvcSample.Common.Mvc;
 using MyMvcSample.Domain.Entities;
-using MyMvcSample.Models;
+using MyMvcSample.Core.Services;
+using MyMvcSample.Common.Mvc;
 
 namespace MyMvcSample.Controllers
 {   

@@ -108,9 +108,14 @@ if(!$serviceProject) {
    $serviceProject = $Project
 }
 
-Scaffold Service -ModelName $foundModelType.Name -OutputPath "Services" -DefaultNamespace $defaultNamespace `
+Scaffold Service -ModelName $foundModelType.Name -DefaultNamespace $defaultNamespace `
                  -Project $Project -ServiceProject $serviceProject -CodeLanguage $CodeLanguage `
                  -EntityNamespace $modelTypeNamespace -Force:$overwriteFilesExceptController
+
+$serviceName = $foundModelType.Name + "Service"
+$ServiceNamespace = (Get-ProjectType $serviceName -Project (Get-Project $serviceProject).ProjectName).Namespace.Name
+$baseControllerNamespace = (Get-ProjectType "BaseController" -Project (Get-Project "*Common*").ProjectName).Namespace.Name
+
 
 # Add Controller
 $templateName = "ControllerWithService"
@@ -123,8 +128,10 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     AreaNamespace = $areaNamespace; 
     DbContextNamespace = $dbContextNamespace;
     RepositoriesNamespace = $repositoriesNamespace;
+    ServiceNamespace = $ServiceNamespace;
     ModelTypeNamespace = $modelTypeNamespace; 
-    ControllerNamespace = $controllerNamespace; 
+    ControllerNamespace = $controllerNamespace;
+    BaseControllerNamespace = $baseControllerNamespace;
     DbContextType = [MarshalByRefObject]$foundDbContextType;    
     ModelTypePluralized = [string]$modelTypePluralized;    
     RelatedEntities = $relatedEntities;
