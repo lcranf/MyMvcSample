@@ -90,7 +90,6 @@
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\Modules\WebModule.cs" />
     <Compile Include="Mappings\MyMvcSampleProfile.cs" />
-    <Compile Include="Models\MyMvcSampleWebContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseAuditableModel.cs" />
     <Compile Include="ViewModels\BaseOrderModel.cs" />
@@ -193,6 +192,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Common\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyMvcSample.Domain\MyMvcSample.Domain.csproj">

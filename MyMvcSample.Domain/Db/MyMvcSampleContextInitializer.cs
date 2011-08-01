@@ -5,9 +5,9 @@ using MyMvcSample.Domain.Entities;
 
 namespace MyMvcSample.Domain.Db
 {
-    public class MyMvcSampleContextInitializer : DropCreateDatabaseIfModelChanges<MyMvcSampleContext>
+    public class MyMvcSampleContextInitializer : DropCreateDatabaseIfModelChanges<MyMvcSampleWebContext>
     {
-        protected override void Seed(MyMvcSampleContext context)
+        protected override void Seed(MyMvcSampleWebContext context)
         {
             var orderStatuses = new[]
                                     {

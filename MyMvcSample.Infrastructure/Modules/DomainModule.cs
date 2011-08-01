@@ -12,7 +12,7 @@ namespace MyMvcSample.Infrastructure.Modules
         /// </summary>
         public override void Load()
         {
-            Bind<DbContext>().To<MyMvcSampleContext>().InTransientScope();
+            Bind<DbContext>().To<MyMvcSampleWebContext>().InTransientScope();
             Bind<IDbContextRegistry>().To<DbContextRegistry>().InRequestScope();
         }
     }

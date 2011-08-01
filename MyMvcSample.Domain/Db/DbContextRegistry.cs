@@ -7,7 +7,7 @@ namespace MyMvcSample.Domain.Db
 {
     public class DbContextRegistry : IDbContextRegistry, IDisposable 
     {
-        private MyMvcSampleContext _dbContext;
+        private MyMvcSampleWebContext _dbContext;
         private bool _disposed;
 
         public DbContext CurrentContext
@@ -15,7 +15,7 @@ namespace MyMvcSample.Domain.Db
             get
             {
                 return _dbContext
-                    ?? (_dbContext = (MyMvcSampleContext) ServiceLocator.Current.GetInstance<DbContext>());
+                    ?? (_dbContext = (MyMvcSampleWebContext) ServiceLocator.Current.GetInstance<DbContext>());
             }
         }
         

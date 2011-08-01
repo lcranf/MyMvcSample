@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Db\MyMvcSampleContextInitializer.cs" />
     <Compile Include="Db\DbContextRegistry.cs" />
-    <Compile Include="Db\MyMvcSampleContext.cs" />
+    <Compile Include="Db\MyMvcSampleWebContext.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderLineItem.cs" />
     <Compile Include="Entities\OrderStatus.cs" />
