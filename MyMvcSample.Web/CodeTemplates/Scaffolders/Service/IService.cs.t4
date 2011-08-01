@@ -4,7 +4,7 @@
 using MyMvcSample.Common.Service;
 using MyMvcSample.Domain.Entities;
 
-namespace <#= Model.DefaultNamespace #>
+namespace <#= Model.Namespace #>
 {
   <#
     var modelType = (CodeType)Model.ModelType; 
