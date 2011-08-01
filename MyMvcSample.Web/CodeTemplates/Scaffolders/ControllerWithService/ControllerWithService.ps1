@@ -108,7 +108,9 @@ if(!$serviceProject) {
    $serviceProject = $Project
 }
 
-Scaffold Service -ModelName $foundModelType.Name -OutputPath "Services" -DefaultNamespace $defaultNamespace -Project $Project -ServiceProject $serviceProject -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
+Scaffold Service -ModelName $foundModelType.Name -OutputPath "Services" -DefaultNamespace $defaultNamespace `
+                 -Project $Project -ServiceProject $serviceProject -CodeLanguage $CodeLanguage `
+                 -EntityNamespace $modelTypeNamespace -Force:$overwriteFilesExceptController
 
 # Add Controller
 $templateName = "ControllerWithService"
@@ -130,7 +132,12 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 
 if($CreateViewModels) {
-       Scaffold ViewModels -ModelFullName $foundModelType.FullName -ModelName $foundModelType.Name -ModelPluralized $modelTypePluralized -Area $Area -AreaNamespace $areaNamespace -ModelNamespace $modelTypeNamespace -ViewModelNamespace $viewModelsNamespace -PrimaryKey = $primaryKey -ViewModelOutputPath $viewModelsPath -DefaultNamespace $defaultNamespace -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController       
+       Scaffold ViewModels -ModelFullName $foundModelType.FullName `
+       -ModelName $foundModelType.Name -ModelPluralized $modelTypePluralized `
+       -Area $Area -AreaNamespace $areaNamespace -ModelNamespace $modelTypeNamespace `
+       -ViewModelNamespace $viewModelsNamespace -PrimaryKey = $primaryKey `
+       -ViewModelOutputPath $viewModelsPath -DefaultNamespace $defaultNamespace `
+       -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController       
 }
 
 if (!$NoChildItems) {

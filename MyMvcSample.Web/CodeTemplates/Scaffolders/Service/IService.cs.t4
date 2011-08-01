@@ -1,8 +1,12 @@
 ﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
 <#@ import namespace="EnvDTE" #>
-using MyMvcSample.Common.Service;
-using MyMvcSample.Domain.Entities;
+<# if(!string.IsNullOrEmpty(Model.ServiceNamespace)) { #>
+using <#= Model.ServiceNamespace #>;
+<# }#>
+<# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
+using <#= Model.ModelTypeNamespace #>;
+<# } #>
 
 namespace <#= Model.Namespace #>
 {

@@ -7,12 +7,12 @@
       <Value>VisualStudio</Value>
     </TransformationPropertyValue>
     <TransformationPropertyValue>
-      <FileName>CodeTemplates\Scaffolders\Service\IService.cs.t4</FileName>
+      <FileName>CodeTemplates\Scaffolders\Service\Service.cs.t4</FileName>
       <PropertyName>Host</PropertyName>
       <Value>VisualStudio</Value>
     </TransformationPropertyValue>
     <TransformationPropertyValue>
-      <FileName>CodeTemplates\Scaffolders\Service\Service.cs.t4</FileName>
+      <FileName>CodeTemplates\Scaffolders\Service\IService.cs.t4</FileName>
       <PropertyName>Host</PropertyName>
       <Value>VisualStudio</Value>
     </TransformationPropertyValue>

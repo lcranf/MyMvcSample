@@ -5,10 +5,15 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="EnvDTE" #>
-using MyMvcSample.Common.Repository;
-using MyMvcSample.Common.Service;
-using MyMvcSample.Domain.Db;
-using MyMvcSample.Domain.Entities;
+<# if(!string.IsNullOrEmpty(Model.RepositoryNamespace)) { #>
+using <#= Model.RepositoryNamespace #>;
+<# }#>
+<# if(!string.IsNullOrEmpty(Model.ServiceNamespace)) { #>
+using <#= Model.ServiceNamespace #>;
+<# }#>
+<# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
+using <#= Model.ModelTypeNamespace #>;
+<# } #>
 
 namespace <#= Model.Namespace #>
 {
