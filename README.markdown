@@ -1,3 +1,7 @@
+For more info visit wiki: (https://github.com/lcranf/MyMvcSample/wiki)
+
+
+
 MyMvcSample is intended as a blueprint for using ASP.NET MVC3 with an Ioc (in this case Ninject) with EF Code First and MvcScaffolding.  The project will eventually include several T4Scaffolding templates which will auto generate files for CRUD'ing operations.  This project also makes use of Ninject Conventions (http://bit.ly/reik9G) to allow services to be auto-discovered that reside in assemblies within the App Domain.  The overall design starts with service classes which are responsible for the nuances surrounding CRUD'ing an Entity.  An example service interface and corresponding class is below for an Order entity:
 
 
@@ -42,7 +46,7 @@ A controller will be scaffolded with a reference to it's corresponding Service c
 
 **Note:** Since all services are auto-registered with Ninject Conventions, there is no need to worry about mucking around with an Ioc configuration file. All services will be registered and properly resolved at runtime.
 
-More details to come...
+For more info visit wiki: (https://github.com/lcranf/MyMvcSample/wiki)
 
 **TODO's**
 

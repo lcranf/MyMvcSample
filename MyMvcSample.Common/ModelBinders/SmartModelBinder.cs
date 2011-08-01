@@ -18,7 +18,10 @@ namespace MyMvcSample.Common.ModelBinders
             {
                 if (modelBinder.IsMatch(bindingContext.ModelType))
                 {
-                    return modelBinder.BindModel(controllerContext, bindingContext);
+                    object model = modelBinder.BindModel(controllerContext, bindingContext);
+
+                    //if model binder fails to bind, give base model binder one more chance
+                    return model ?? base.BindModel(controllerContext, bindingContext);
                 }
             }
 
