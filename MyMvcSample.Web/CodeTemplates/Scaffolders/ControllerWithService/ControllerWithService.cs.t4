@@ -19,6 +19,10 @@ using <#= Model.ServiceNamespace #>;
 <# if(!string.IsNullOrEmpty(Model.BaseControllerNamespace)) { #>
 using <#= Model.BaseControllerNamespace #>;
 <# } #>
+<# if(Model.CreateViewModels) { #>
+using <#= Model.ViewModelNamespace + "." + Model.ModelTypePluralized #>;
+<# } #>
+
 
 namespace <#= Model.ControllerNamespace #>
 {   
@@ -71,18 +75,19 @@ namespace <#= Model.ControllerNamespace #>
 
         public ActionResult Create()
         {
-            return View();
+            <#=((Model.CreateViewModels) ? "var model = new " + modelName + "CreateModel();" : string.Empty) #>
+            return View(<#=(Model.CreateViewModels) ? "model" : string.Empty #>);
         } 
 
         //
         // POST: /<#= routingName #>/Create
-
+       
         [HttpPost]
-        public ActionResult Create(<#= modelName #> <#= modelVariable #>)
+        public ActionResult Create(<#= (!Model.CreateViewModels) ? modelName : modelName + "CreateModel" #> <#= modelVariable #>)
         {
             if (ModelState.IsValid)
             {
-                _<#=serviceVariableName #>.Create(<#= modelVariable #>);
+                _<#=serviceVariableName #>.Create<#=(!Model.CreateViewModels) ? string.Empty : "FromModel" #>(<#= modelVariable #>);
                 
                 return RedirectToAction("Index");
             }

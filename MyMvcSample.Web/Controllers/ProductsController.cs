@@ -6,17 +6,14 @@ using System.Web.Mvc;
 using MyMvcSample.Domain.Entities;
 using MyMvcSample.Core.Services;
 using MyMvcSample.Common.Mvc;
+using MyMvcSample.ViewModels.Products;
+
 
 namespace MyMvcSample.Controllers
 {   
     public class ProductsController : BaseController
     {
         private readonly IProductService _productService;
-        
-        // If you are using Dependency Injection, you can delete the following constructor
-        public ProductsController() : this(new ProductService())
-        {
-        }
         
         public ProductsController(IProductService productService)
         {
@@ -45,18 +42,19 @@ namespace MyMvcSample.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var model = new ProductCreateModel();
+            return View(model);
         } 
 
         //
         // POST: /Products/Create
-
+       
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(ProductCreateModel product)
         {
             if (ModelState.IsValid)
             {
-                _productService.Create(product);
+                _productService.CreateFromModel(product);
                 
                 return RedirectToAction("Index");
             }

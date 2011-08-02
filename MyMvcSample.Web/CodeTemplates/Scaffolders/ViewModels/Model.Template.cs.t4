@@ -6,6 +6,9 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="EnvDTE" #>
+<# if(!(Model.IsBaseClass) && !string.IsNullOrEmpty(Model.BaseViewModelNamespace)) { #>
+using <#= Model.BaseViewModelNamespace #>;
+<# } #>
 
 namespace <#= Model.DefaultNamespace #>
 {
@@ -29,7 +32,7 @@ namespace <#= Model.DefaultNamespace #>
     }
   #>
 
-    public <#=  (Model.IsBaseClass) ? "abstract " : string.Empty #>class <#= Model.ClassName #> <#= extendedBaseClass #>
+    public <#=  (Model.IsBaseClass) ? "abstract " : string.Empty #>class <#= Model.ClassName #> <#= extendedBaseClass #><#= (!string.IsNullOrEmpty(Model.ViewModelInterface) ? ", " + Model.ViewModelInterface : string.Empty) #>
     {
         <# foreach(CodeProperty property in publicProperties) { #>
 

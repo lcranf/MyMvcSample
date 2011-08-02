@@ -27,6 +27,7 @@ if (!$foundModelType)
 }
 
 $namespace = (Get-Project $Project).Properties.Item("DefaultNamespace").Value
+$baseViewModelNamespace = (Get-ProjectType IEditModel -Project (Get-Project *Common*).ProjectName).Namespace.Name
 $defaultNamespace = $ViewModelNamespace + "." + $ModelPluralized
 $baseModelFileName = "Base" + $ModelName + "Model"
 $outputPath = Join-Path $viewModelOutputPath $baseModelFileName
@@ -61,12 +62,14 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
         DefaultNamespace = $defaultNamespace; 
         AreaNamespace = $AreaNamespace;
         ModelTypeNamespace = $modelTypeNamespace;
+        BaseViewModelNamespace = $baseViewModelNamespace;
+        ViewModelInterface = "ICreateModel";
         ModelTypePluralized = [string]$modelTypePluralized;    
         RelatedEntities = $relatedEntities;   
         ClassName = $createModelFileName;
         BaseClassName = $baseModelFileName;
         IsBaseClass = $False;
-        IsEditable = $False;        
+        IsEditable = $False;
         IncludePrimaryKey = $False;
         SkipAllProperties = $True;
     } -SuccessMessage "Added Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
@@ -83,6 +86,8 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
         DefaultNamespace = $defaultNamespace; 
         AreaNamespace = $AreaNamespace;
         ModelTypeNamespace = $modelTypeNamespace;
+        BaseViewModelNamespace = $baseViewModelNamespace;
+        ViewModelInterface = "IEditModel";
         ModelTypePluralized = [string]$modelTypePluralized;    
         RelatedEntities = $relatedEntities;
         ClassName = $editModelFileName;

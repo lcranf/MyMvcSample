@@ -133,9 +133,11 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     ModelTypeNamespace = $modelTypeNamespace; 
     ControllerNamespace = $controllerNamespace;
     BaseControllerNamespace = $baseControllerNamespace;
+    ViewModelNamespace = $viewModelsNamespace;
     DbContextType = [MarshalByRefObject]$foundDbContextType;    
     ModelTypePluralized = [string]$modelTypePluralized;    
     RelatedEntities = $relatedEntities;
+    CreateViewModels = $CreateViewModels.IsPresent;
     NoIoc = $NoIoc.IsPresent;
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 
