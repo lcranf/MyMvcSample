@@ -32,7 +32,6 @@ $defaultNamespace = $ViewModelNamespace + "." + $ModelPluralized
 $baseModelFileName = "Base" + $ModelName + "Model"
 $outputPath = Join-Path $viewModelOutputPath $baseModelFileName
 
-Write-Host "Building $baseModelFileName"
 
 # Create BaseEntityModel 
 Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{        
@@ -51,9 +50,8 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
     } -SuccessMessage "Added Model {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
 
 $createModelFileName = $ModelName + "CreateModel"
-$outputPath = Join-Path $viewModelOutputPath $createModelFileName
- 
-Write-Host "Building $createModelFileName"
+$outputPath = Join-Path $viewModelOutputPath $createModelFileName 
+
  
 # Create EntityCreateModel 
 Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{        
@@ -77,7 +75,6 @@ Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{
 $editModelFileName = $ModelName + "EditModel"
 $outputPath = Join-Path $viewModelOutputPath $editModelFileName
 
-Write-Host "Building $editModelFileName"
 
 # Create EntityEditModel 
 Add-ProjectItemViaTemplate $outputPath -Template "Model.Template" -Model @{        

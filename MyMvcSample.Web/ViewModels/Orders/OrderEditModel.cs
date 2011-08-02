@@ -1,6 +1,6 @@
 ﻿using MyMvcSample.Common.ViewModels;
 
-namespace MyMvcSample.ViewModels
+namespace MyMvcSample.ViewModels.Orders
 {
     public class OrderEditModel : BaseOrderModel, IEditModel
     {

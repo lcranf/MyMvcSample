@@ -19,6 +19,8 @@ param(
     [string]$ForceMode
 )
 
+Write-Host "View scaffolder = $ViewScaffolder"
+
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
     Write-Error ("Project '$((Get-Project $Project).Name)' is not an ASP.NET MVC 3 project.")
     return
@@ -116,12 +118,12 @@ Scaffold Service -ModelName $foundModelType.Name -DefaultNamespace $defaultNames
 $serviceName = $foundModelType.Name + "Service"
 $ServiceNamespace = (Get-ProjectType $serviceName -Project (Get-Project $serviceProject).ProjectName).Namespace.Name
 $baseControllerNamespace = (Get-ProjectType "BaseController" -Project (Get-Project "*Common*").ProjectName).Namespace.Name
+$commonExtensionNamespace = (Get-ProjectType "MapEntityToModelExtensions" -Project (Get-Project "*Common*").ProjectName).Namespace.Name
 
 
 # Add Controller
-$templateName = "ControllerWithService"
 
-Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
+Add-ProjectItemViaTemplate $outputPath -Template "ControllerWithService" -Model @{
     ControllerName = $ControllerName;
     ModelType = [MarshalByRefObject]$foundModelType; 
     PrimaryKey = [string]$primaryKey; 
@@ -134,6 +136,7 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
     ControllerNamespace = $controllerNamespace;
     BaseControllerNamespace = $baseControllerNamespace;
     ViewModelNamespace = $viewModelsNamespace;
+    CommonExtensionNamespace = $commonExtensionNamespace;
     DbContextType = [MarshalByRefObject]$foundDbContextType;    
     ModelTypePluralized = [string]$modelTypePluralized;    
     RelatedEntities = $relatedEntities;
@@ -153,6 +156,10 @@ if($CreateViewModels) {
 if (!$NoChildItems) {
     $controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($ControllerName, "Controller$", "", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     if ($ViewScaffolder) {
-        Scaffold Views -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix -ModelType $foundModelType.FullName -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
+        Scaffold Views -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix `
+                       -ModelType $foundModelType.FullName -Area $Area -Layout $Layout `
+                       -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName `
+                       -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project `
+                       -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
     }
 }

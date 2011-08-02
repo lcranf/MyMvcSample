@@ -60,7 +60,6 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\MapEntityToModelExtensions.cs" />
     <Compile Include="Extensions\MapModelToEntityExtensions.cs" />
-    <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="Extensions\MonadExtensions.cs" />
     <Compile Include="Extensions\SelectListItemExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

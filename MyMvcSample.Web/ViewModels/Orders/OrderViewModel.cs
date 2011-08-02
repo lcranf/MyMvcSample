@@ -1,4 +1,4 @@
-﻿namespace MyMvcSample.ViewModels
+﻿namespace MyMvcSample.ViewModels.Orders
 {
     public class OrderViewModel : BaseOrderModel
     {

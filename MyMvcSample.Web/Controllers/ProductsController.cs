@@ -7,6 +7,7 @@ using MyMvcSample.Domain.Entities;
 using MyMvcSample.Core.Services;
 using MyMvcSample.Common.Mvc;
 using MyMvcSample.ViewModels.Products;
+using MyMvcSample.Common.Extensions;
 
 
 namespace MyMvcSample.Controllers
@@ -68,23 +69,23 @@ namespace MyMvcSample.Controllers
  
         public ActionResult Edit(Product id)
         {
-             return View(id);
+             var model = id.MapTo(new ProductCreateModel());
+             return View(model);
         }
 
         //
         // POST: /Products/Edit/5
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditPosted(Product product)
+        public ActionResult EditPosted(ProductEditModel product)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _productService.Update(product);
-                return RedirectToAction("Index");
+                return View(product);                
             }
-             
-            return View(product);
             
+            _productService.UpdateFromModel(product);
+            return RedirectToAction("Index");
         }
 
         //

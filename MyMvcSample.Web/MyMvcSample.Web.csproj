@@ -90,10 +90,10 @@
     <Compile Include="Mappings\MyMvcSampleProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseAuditableModel.cs" />
-    <Compile Include="ViewModels\BaseOrderModel.cs" />
-    <Compile Include="ViewModels\OrderCreateModel.cs" />
-    <Compile Include="ViewModels\OrderEditModel.cs" />
-    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderCreateModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderEditModel.cs" />
+    <Compile Include="ViewModels\Orders\BaseOrderModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderViewModel.cs" />
     <Compile Include="ViewModels\Products\BaseProductModel.cs" />
     <Compile Include="ViewModels\Products\ProductCreateModel.cs" />
     <Compile Include="ViewModels\Products\ProductEditModel.cs" />
@@ -163,6 +163,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="packages.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.ps1" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\Service\IService.cs.t4" />

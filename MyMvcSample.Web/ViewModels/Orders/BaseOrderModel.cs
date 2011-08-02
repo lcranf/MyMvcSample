@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace MyMvcSample.ViewModels
+namespace MyMvcSample.ViewModels.Orders
 {
     public abstract class BaseOrderModel : BaseAuditableModel
     {

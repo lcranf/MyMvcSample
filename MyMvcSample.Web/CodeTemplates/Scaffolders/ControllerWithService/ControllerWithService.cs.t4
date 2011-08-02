@@ -22,6 +22,9 @@ using <#= Model.BaseControllerNamespace #>;
 <# if(Model.CreateViewModels) { #>
 using <#= Model.ViewModelNamespace + "." + Model.ModelTypePluralized #>;
 <# } #>
+<# if (!string.IsNullOrEmpty(Model.CommonExtensionNamespace)) { #>
+using <#= Model.CommonExtensionNamespace #>;
+<# } #>
 
 
 namespace <#= Model.ControllerNamespace #>
@@ -101,23 +104,23 @@ namespace <#= Model.ControllerNamespace #>
  
         public ActionResult Edit(<#= modelName #> id)
         {
-             return View(id);
+             <#=((Model.CreateViewModels) ? "var model = id.MapTo(new " + modelName + "CreateModel());" : string.Empty) #>
+             return View(<#=(Model.CreateViewModels) ? "model" : "id" #>);
         }
 
         //
         // POST: /<#= routingName #>/Edit/5
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditPosted(<#= modelName #> <#= modelVariable #>)
+        public ActionResult EditPosted(<#= (!Model.CreateViewModels) ? modelName : modelName + "EditModel" #> <#= modelVariable #>)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _<#=serviceVariableName #>.Update(<#= modelVariable #>);
-                return RedirectToAction("Index");
+                return View(<#= modelVariable #>);                
             }
-             
-            return View(<#= modelVariable #>);
             
+            _<#=serviceVariableName #>.Update<#=(!Model.CreateViewModels) ? string.Empty : "FromModel" #>(<#= modelVariable #>);
+            return RedirectToAction("Index");
         }
 
         //

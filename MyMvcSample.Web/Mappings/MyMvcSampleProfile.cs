@@ -2,6 +2,7 @@
 using MyMvcSample.Common.Mappings;
 using MyMvcSample.Domain.Entities;
 using MyMvcSample.ViewModels;
+using MyMvcSample.ViewModels.Orders;
 
 namespace MyMvcSample.Mappings
 {

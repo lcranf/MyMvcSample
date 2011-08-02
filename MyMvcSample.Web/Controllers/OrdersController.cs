@@ -5,6 +5,7 @@ using MyMvcSample.Common.Mvc;
 using MyMvcSample.Core.Services;
 using MyMvcSample.Domain.Entities;
 using MyMvcSample.ViewModels;
+using MyMvcSample.ViewModels.Orders;
 
 namespace MyMvcSample.Controllers
 {   
