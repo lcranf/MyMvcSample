@@ -52,6 +52,10 @@ Add-ProjectItemViaTemplate $interfaceOutputPath -Template IService -Model @{
 $serviceImplementation = $ModelName + "Service"
 $implementationOutputPath = Join-Path $OutputPath $serviceImplementation
 
+if($NoIoc) {
+  $dbRegistryNamespace = (Get-ProjectType DbContextRegistry -Project (Get-Project *Domain*).ProjectName).Namespace.Name
+}
+
 Add-ProjectItemViaTemplate $implementationOutputPath -Template Service -Model @{
      Namespace = $namespace;
      ModelType = [MarshalByRefObject]$foundModelType; 
@@ -60,6 +64,7 @@ Add-ProjectItemViaTemplate $implementationOutputPath -Template Service -Model @{
      AreaNamespace = $areaNamespace;
      ModelTypeNamespace = $EntityNamespace;
      RepositoryNamespace = $baseRepositoryNamespace;
+     DbContextRegistryNamespace = $dbRegistryNamespace;
      ServiceNamespace = $baseServiceNamespace;     
      NoIoc = $NoIoc.IsPresent;
   } -SuccessMessage "Added Service output at {0}" `

@@ -110,6 +110,7 @@ if(!$serviceProject) {
 
 Scaffold Service -ModelName $foundModelType.Name -DefaultNamespace $defaultNamespace `
                  -Project $Project -ServiceProject $serviceProject -CodeLanguage $CodeLanguage `
+                 -NoIoc:$NoIoc `
                  -EntityNamespace $modelTypeNamespace -Force:$overwriteFilesExceptController
 
 $serviceName = $foundModelType.Name + "Service"
