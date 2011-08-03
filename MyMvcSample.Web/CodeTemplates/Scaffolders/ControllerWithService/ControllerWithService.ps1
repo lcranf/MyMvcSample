@@ -160,6 +160,6 @@ if (!$NoChildItems) {
                        -ModelType $foundModelType.FullName -Area $Area -Layout $Layout `
                        -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName `
                        -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project `
-                       -CodeLanguage $CodeLanguage -CreateViewModels -Force:$overwriteFilesExceptController
+                       -CodeLanguage $CodeLanguage -CreateViewModels:$CreateViewModels -Force:$overwriteFilesExceptController
     }
 }

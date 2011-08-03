@@ -12,8 +12,11 @@ param(
     [string]$Project,
 	[string]$CodeLanguage,
 	[string[]]$TemplateFolders,
+    [switch]$CreateViewModels = $false,
 	[switch]$Force = $false
 )
+
+Write-Host "RazorView CreateViewModels = $CreateViewModels"
 
 # Ensure this is a valid target project
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
