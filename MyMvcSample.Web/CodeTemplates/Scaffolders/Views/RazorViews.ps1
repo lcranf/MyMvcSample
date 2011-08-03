@@ -19,5 +19,35 @@ Write-Host "RazorViews CreateViewModels = $CreateViewModels"
 Write-Host "RazorViews ViewScaffolder = $ViewScaffolder"
 
 @("Create", "Edit", "Delete", "Details", "Index", "_CreateOrEdit") | %{
-	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force -BlockUi -CreateViewModels:$CreateViewModels
+
+    Write-Host "Creating View .. $_"
+    
+    # Ensure we have a controller name, plus a model type if specified
+    if ($ModelType) {
+    	$foundModelType = Get-ProjectType $ModelType -Project $Project
+    	if (!$foundModelType) { return }    	
+    }
+    
+    $modelName = $foundModelType.Name
+    $razorModelType = $foundModelType;
+    
+    switch ($_)
+    {
+       "Create" {
+          $viewModel = $modelName
+          $viewModel+= "CreateModel"
+          $razorModelType = Get-ProjectType $viewModel -Project $Project
+          }      
+          
+         "Edit" {
+          $viewModel = $modelName
+          $viewModel+= "EditModel"
+          $razorModelType = Get-ProjectType $viewModel -Project $Project
+          }        
+    }
+
+    $modelFullName = $razorModelType.FullName
+    Write-Host "ModelType = $modelFullName"
+
+	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $razorModelType.FullName -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force -BlockUi -CreateViewModels:$CreateViewModels
 }

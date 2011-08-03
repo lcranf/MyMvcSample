@@ -19,7 +19,8 @@ param(
     [string]$ForceMode
 )
 
-Write-Host "View scaffolder = $ViewScaffolder"
+Write-Host "ControllerWithService View scaffolder = $ViewScaffolder"
+Write-Host "ControllerWithService ModelType = $ModelType"
 
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
     Write-Error ("Project '$((Get-Project $Project).Name)' is not an ASP.NET MVC 3 project.")
@@ -143,6 +144,7 @@ Add-ProjectItemViaTemplate $outputPath -Template "ControllerWithService" -Model 
     CreateViewModels = $CreateViewModels.IsPresent;
     NoIoc = $NoIoc.IsPresent;
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
+
 
 if($CreateViewModels) {
        Scaffold ViewModels -ModelFullName $foundModelType.FullName `

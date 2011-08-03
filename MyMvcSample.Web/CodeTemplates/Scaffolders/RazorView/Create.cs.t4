@@ -14,7 +14,7 @@
 <#@ import namespace="System.Reflection" #>
 <# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
 <# if(viewDataType != null) { #>
-@model MyMvcSample.Domain.Entities.Product.StanleyCool
+@model <#= viewDataType.FullName #>
 
 <# } #>
 @{

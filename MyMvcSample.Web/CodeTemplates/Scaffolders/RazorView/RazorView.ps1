@@ -17,6 +17,7 @@ param(
 )
 
 Write-Host "RazorView CreateViewModels = $CreateViewModels"
+Write-Host "RazorView ModelType = $ModelType"
 
 # Ensure this is a valid target project
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
