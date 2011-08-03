@@ -15,12 +15,7 @@ param(
 	[switch]$Force = $false
 )
 
-Write-Host "RazorViews CreateViewModels = $CreateViewModels"
-Write-Host "RazorViews ViewScaffolder = $ViewScaffolder"
-
 @("Create", "Edit", "Delete", "Details", "Index", "_CreateOrEdit") | %{
-
-    Write-Host "Creating View .. $_"
     
     # Ensure we have a controller name, plus a model type if specified
     if ($ModelType) {
@@ -30,20 +25,32 @@ Write-Host "RazorViews ViewScaffolder = $ViewScaffolder"
     
     $modelName = $foundModelType.Name
     $razorModelType = $foundModelType;
+        
+    if ($CreateViewModels)
+    {    
+        switch ($_)
+        {
+           "Create" {
+              $viewModel = $modelName
+              $viewModel+= "CreateModel"
+              $razorModelType = Get-ProjectType $viewModel -Project $Project
+              }      
+              
+             "Edit" {
+              $viewModel = $modelName
+              $viewModel+= "EditModel"
+              $razorModelType = Get-ProjectType $viewModel -Project $Project
+              }      
+              
+                
+             "_CreateOrEdit" {
+              $viewModel = "Base"
+              $viewModel += $modelName
+              $viewModel+= "Model"
+              $razorModelType = Get-ProjectType $viewModel -Project $Project
+              }         
+        }
     
-    switch ($_)
-    {
-       "Create" {
-          $viewModel = $modelName
-          $viewModel+= "CreateModel"
-          $razorModelType = Get-ProjectType $viewModel -Project $Project
-          }      
-          
-         "Edit" {
-          $viewModel = $modelName
-          $viewModel+= "EditModel"
-          $razorModelType = Get-ProjectType $viewModel -Project $Project
-          }        
     }
 
     $modelFullName = $razorModelType.FullName

@@ -1,4 +1,4 @@
-@model MyMvcSample.ViewModels.Products.ProductEditModel
+@model MyMvcSample.Domain.Entities.Product
 
 @{
     ViewBag.Title = "Edit";
@@ -9,9 +9,8 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>ProductEditModel</legend>
+        <legend>Product</legend>
 
-        @Html.HiddenFor(model => model.Id)
 		@Html.Partial("_CreateOrEdit", Model)
 
         <p>

@@ -20,7 +20,7 @@ param(
 )
 
 Write-Host "ControllerWithService View scaffolder = $ViewScaffolder"
-Write-Host "ControllerWithService ModelType = $ModelType"
+
 
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
     Write-Error ("Project '$((Get-Project $Project).Name)' is not an ASP.NET MVC 3 project.")

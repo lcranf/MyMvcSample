@@ -16,9 +16,6 @@ param(
 	[switch]$Force = $false
 )
 
-Write-Host "RazorView CreateViewModels = $CreateViewModels"
-Write-Host "RazorView ModelType = $ModelType"
-
 # Ensure this is a valid target project
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
 	Write-Error ("Project '$((Get-Project $Project).Name)' is not an ASP.NET MVC 3 project.")
