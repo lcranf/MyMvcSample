@@ -52,9 +52,6 @@ param(
         }
     
     }
-
-    $modelFullName = $razorModelType.FullName
-    Write-Host "ModelType = $modelFullName"
-
+       
 	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $razorModelType.FullName -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force -BlockUi -CreateViewModels:$CreateViewModels
 }
