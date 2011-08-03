@@ -6,7 +6,7 @@ param(
     [string]$CodeLanguage,
     [string]$DbContextType,
     [string]$Area,
-    [string]$ViewScaffolder = "View",
+    [string]$ViewScaffolder = "RazorView",
     [alias("MasterPage")]$Layout,
     [alias("ContentPlaceholderIDs")][string[]]$SectionNames,
     [alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,    
@@ -156,7 +156,7 @@ if($CreateViewModels) {
 if (!$NoChildItems) {
     $controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($ControllerName, "Controller$", "", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     if ($ViewScaffolder) {
-        Scaffold Views -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix `
+        Scaffold RazorViews -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix `
                        -ModelType $foundModelType.FullName -Area $Area -Layout $Layout `
                        -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName `
                        -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project `
