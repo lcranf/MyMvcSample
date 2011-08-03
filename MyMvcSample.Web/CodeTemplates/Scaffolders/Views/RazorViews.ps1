@@ -10,7 +10,7 @@ param(
     [string]$Project,
 	[string]$CodeLanguage,
 	[string[]]$TemplateFolders,
-	[string]$ViewScaffolder = "View",
+	[string]$ViewScaffolder = "RazorView",
     [switch]$CreateViewModels = $false,
 	[switch]$Force = $false
 )
@@ -19,5 +19,5 @@ Write-Host "RazorViews CreateViewModels = $CreateViewModels"
 Write-Host "RazorViews ViewScaffolder = $ViewScaffolder"
 
 @("Create", "Edit", "Delete", "Details", "Index", "_CreateOrEdit") | %{
-	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force -BlockUi
+	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force -BlockUi -CreateViewModels:$CreateViewModels
 }
