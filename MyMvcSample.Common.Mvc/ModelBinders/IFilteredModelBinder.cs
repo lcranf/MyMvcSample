@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Web.Mvc;
 
-namespace MyMvcSample.Common.ModelBinders
+namespace MyMvcSample.Common.Mvc.ModelBinders
 {
     public interface IFilteredModelBinder : IModelBinder
     {

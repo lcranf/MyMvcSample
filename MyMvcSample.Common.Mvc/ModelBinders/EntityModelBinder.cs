@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Web.Mvc;
 using Microsoft.Practices.ServiceLocation;
 using MyMvcSample.Common.Domain;
 using MyMvcSample.Common.Repository;
 
-namespace MyMvcSample.Common.ModelBinders
+namespace MyMvcSample.Common.Mvc.ModelBinders
 {
     public class EntityModelBinder : IFilteredModelBinder
     {

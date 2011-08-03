@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using MyMvcSample.Common.Domain;
+using MyMvcSample.Common.Extensions;
 
-namespace MyMvcSample.Common.Extensions
+namespace MyMvcSample.Common.Mvc.Extensions
 {
     public static class SelectListItemExtensions
     {

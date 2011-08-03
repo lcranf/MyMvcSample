@@ -192,6 +192,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyMvcSample.Common.Mvc\MyMvcSample.Common.Mvc.csproj">
+      <Project>{085AF89B-B319-422C-9760-FE08AEAE2BC6}</Project>
+      <Name>MyMvcSample.Common.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyMvcSample.Domain\MyMvcSample.Domain.csproj">
       <Project>{E6CFC0B8-2062-4745-80E0-88EC0C71A575}</Project>
       <Name>MyMvcSample.Domain</Name>
