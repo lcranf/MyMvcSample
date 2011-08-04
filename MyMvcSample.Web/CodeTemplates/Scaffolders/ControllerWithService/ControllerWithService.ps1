@@ -6,7 +6,7 @@ param(
     [string]$CodeLanguage,
     [string]$DbContextType,
     [string]$Area,
-    [string]$ViewScaffolder = "View",
+    [string]$ViewScaffolder = "RazorView",
     [alias("MasterPage")]$Layout,
     [alias("ContentPlaceholderIDs")][string[]]$SectionNames,
     [alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,    
@@ -18,7 +18,6 @@ param(
     [switch]$Force = $false,
     [string]$ForceMode
 )
-
 
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
     Write-Error ("Project '$((Get-Project $Project).Name)' is not an ASP.NET MVC 3 project.")
@@ -143,6 +142,7 @@ Add-ProjectItemViaTemplate $outputPath -Template "ControllerWithService" -Model 
     NoIoc = $NoIoc.IsPresent;
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 
+
 if($CreateViewModels) {
        Scaffold ViewModels -ModelFullName $foundModelType.FullName `
        -ModelName $foundModelType.Name -ModelPluralized $modelTypePluralized `
@@ -155,10 +155,10 @@ if($CreateViewModels) {
 if (!$NoChildItems) {
     $controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($ControllerName, "Controller$", "", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     if ($ViewScaffolder) {
-        Scaffold Views -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix `
+        Scaffold RazorViews -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix `
                        -ModelType $foundModelType.FullName -Area $Area -Layout $Layout `
                        -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName `
                        -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project `
-                       -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
+                       -CodeLanguage $CodeLanguage -CreateViewModels:$CreateViewModels -Force:$overwriteFilesExceptController
     }
 }
