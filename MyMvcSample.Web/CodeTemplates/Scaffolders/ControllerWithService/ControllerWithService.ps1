@@ -19,7 +19,6 @@ param(
     [string]$ForceMode
 )
 
-Write-Host "View scaffolder = $ViewScaffolder"
 
 if (!((Get-ProjectAspNetMvcVersion -Project $Project) -ge 3)) {
     Write-Error ("Project '$((Get-Project $Project).Name)' is not an ASP.NET MVC 3 project.")

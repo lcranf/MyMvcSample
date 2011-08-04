@@ -16,7 +16,6 @@ namespace MyMvcSample.Mappings
             CreateMap<Order, OrderCreateModel>();
 
             CreateMap<OrderEditModel, Order>()
-
                 .ForMember(o => o.CreatedBy, config => config.Ignore())
                 .ForMember(o => o.CreatedOn, config => config.Ignore())
                 .ForMember(o => o.UpdatedBy, config => config.Ignore())
