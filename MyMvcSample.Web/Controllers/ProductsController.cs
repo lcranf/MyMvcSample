@@ -60,8 +60,7 @@ namespace MyMvcSample.Controllers
                 return RedirectToAction("Index");
             }
             
-            return View();
-            
+            return View(product);
         }
         
         //
@@ -69,7 +68,7 @@ namespace MyMvcSample.Controllers
  
         public ActionResult Edit(Product id)
         {
-             var model = id.MapTo(new ProductCreateModel());
+             var model = id.MapTo(new ProductEditModel());
              return View(model);
         }
 

@@ -95,8 +95,7 @@ namespace <#= Model.ControllerNamespace #>
                 return RedirectToAction("Index");
             }
             
-            return View();
-            
+            return View(<#=(Model.CreateViewModels) ? modelVariable : string.Empty #>);
         }
         
         //
@@ -104,7 +103,7 @@ namespace <#= Model.ControllerNamespace #>
  
         public ActionResult Edit(<#= modelName #> id)
         {
-             <#=((Model.CreateViewModels) ? "var model = id.MapTo(new " + modelName + "CreateModel());" : string.Empty) #>
+             <#=((Model.CreateViewModels) ? "var model = id.MapTo(new " + modelName + "EditModel());" : string.Empty) #>
              return View(<#=(Model.CreateViewModels) ? "model" : "id" #>);
         }
 
