@@ -3,6 +3,7 @@ using MyMvcSample.Common.Mappings;
 using MyMvcSample.Domain.Entities;
 using MyMvcSample.ViewModels;
 using MyMvcSample.ViewModels.Orders;
+using MyMvcSample.ViewModels.Products;
 
 namespace MyMvcSample.Mappings
 {
@@ -24,6 +25,12 @@ namespace MyMvcSample.Mappings
             CreateMap<int, OrderStatus>().ConvertUsing<IdToEntityTypeConverter<OrderStatus>>();
             CreateMap<OrderStatus, int>().ConvertUsing<EntityToIdTypeConverter<OrderStatus>>();
             CreateMap<OrderCreateModel, Order>();
+
+            CreateMap<ProductCreateModel, Product>();
+            CreateMap<Product, ProductCreateModel>();
+
+            CreateMap<ProductEditModel, Product>();
+            CreateMap<Product, ProductEditModel>();
         }
     }
 }
