@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace MyMvcSample.Common.ModelBinders
+namespace MyMvcSample.Common.Mvc.ModelBinders
 {
     public class SmartModelBinder : DefaultModelBinder
     {

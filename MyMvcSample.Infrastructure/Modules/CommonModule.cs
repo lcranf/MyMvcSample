@@ -1,4 +1,4 @@
-﻿using MyMvcSample.Common.ModelBinders;
+﻿using MyMvcSample.Common.Mvc.ModelBinders;
 using MyMvcSample.Common.Repository;
 using Ninject.Modules;
 

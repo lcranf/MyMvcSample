@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.ServiceLocation;
-using MyMvcSample.Common.ModelBinders;
+using MyMvcSample.Common.Mvc.ModelBinders;
 using MyMvcSample.Domain.Db;
 
 namespace MyMvcSample.Infrastructure
