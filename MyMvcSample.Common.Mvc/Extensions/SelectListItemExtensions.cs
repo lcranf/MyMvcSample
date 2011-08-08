@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -19,6 +20,13 @@ namespace MyMvcSample.Common.Mvc.Extensions
                                             Value = i.Id.ToString(),
                                             Selected = i.Id.Equals(selectedItem)
                                         });
+        }
+
+        public static IEnumerable<SelectListItem> ToSelectItems<T>(this IEnumerable<T> items, Func<T, string> textFunc, Func<T, string> valueFunc)
+        {
+            if (items.IsNullOrEmpty()) return Enumerable.Empty<SelectListItem>();
+
+            return items.Select(i => new SelectListItem { Text = textFunc(i), Value = valueFunc(i) });
         }
     }
 }

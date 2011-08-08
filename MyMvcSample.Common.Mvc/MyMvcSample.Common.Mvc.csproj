@@ -31,11 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\MyMvcSample.Web\bin\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\ElmahResult.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="ModelBinders\EntityModelBinder.cs" />
     <Compile Include="ModelBinders\IFilteredModelBinder.cs" />
@@ -52,7 +57,6 @@
     <Compile Include="Extensions\SelectListItemExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ActionResults\" />
     <Folder Include="HtmlHelpers\" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +64,9 @@
       <Project>{60C975EB-D0B2-4D3F-B517-426F52190436}</Project>
       <Name>MyMvcSample.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

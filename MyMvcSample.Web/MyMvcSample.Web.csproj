@@ -38,6 +38,12 @@
     <Reference Include="EFHooks, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EFHooks.1.0.1\lib\net40\EFHooks.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Contrib.Mvc">
+      <HintPath>..\packages\Elmah.Contrib.Mvc.1.0\lib\net40\Elmah.Contrib.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
@@ -79,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectMVC3.cs" />
+    <Compile Include="Controllers\ElmahController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
