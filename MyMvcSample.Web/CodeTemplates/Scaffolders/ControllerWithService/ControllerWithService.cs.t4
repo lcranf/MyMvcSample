@@ -50,7 +50,7 @@ namespace <#= Model.ControllerNamespace #>
 					
 		<# foreach (var item in relatedEntitiesOneToMany) { 			
 			var baseMembers = item.Type.CodeType.Bases.OfType<CodeType>().Where(f => f.Name == "BaseReferenceEntity").ToList();
-			if (baseMembers.Count > 0) {		
+			if (baseMembers.Count > 0 && Model.CreateViewModels) {		
 		#>			
 			
 		//private readonly I<#= item.Name #>Service _<#= item.Name.Substring(0,1).ToLower() + item.Name.Substring(1) #>Service ;											
