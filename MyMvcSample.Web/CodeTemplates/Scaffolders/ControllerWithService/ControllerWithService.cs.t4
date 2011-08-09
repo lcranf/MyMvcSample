@@ -1,4 +1,4 @@
-<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -39,12 +39,25 @@ namespace <#= Model.ControllerNamespace #>
 
     var relatedEntities = modelType.VisibleMembers().OfType<CodeProperty>().Where(x => x.Getter.CanOverride);
     var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
-    
+
+    var relatedEntitiesOneToMany = modelType.VisibleMembers().OfType<CodeProperty>().ToList(); 
+        
     var routingName = Regex.Replace(Model.ControllerName, "Controller$", "", RegexOptions.IgnoreCase);
 #>
     public class <#= Model.ControllerName #> : BaseController
     {
         private readonly I<#= serviceName #> _<#= serviceVariableName #>;
+					
+		<# foreach (var item in relatedEntitiesOneToMany) { 			
+			var baseMembers = item.Type.CodeType.Bases.OfType<CodeType>().Where(f => f.Name == "BaseReferenceEntity").ToList();
+			if (baseMembers.Count > 0) {		
+		#>			
+			
+		//private readonly I<#= item.Name #>Service _<#= item.Name.Substring(0,1).ToLower() + item.Name.Substring(1) #>Service ;											
+	    
+		<#}} #>
+		
+		
         <# if(Model.NoIoc) { #>
 
         // If you are using Dependency Injection, you can delete the following constructor
