@@ -35,9 +35,11 @@ namespace <#= Model.ControllerNamespace #>
     var modelNamePlural = Model.ModelTypePluralized;
     var serviceName = modelName + "Service";
     var serviceVariableName = modelName.ToLower() + "Service";
-    var modelVariable = modelName.ToLower(); 
-    var relatedEntities = ((IEnumerable)Model.RelatedEntities).OfType<RelatedEntityInfo>();
+    var modelVariable = modelName.ToLower();
+
+    var relatedEntities = modelType.VisibleMembers().OfType<CodeProperty>().Where(x => x.Getter.CanOverride);
     var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
+    
     var routingName = Regex.Replace(Model.ControllerName, "Controller$", "", RegexOptions.IgnoreCase);
 #>
     public class <#= Model.ControllerName #> : BaseController
@@ -54,7 +56,6 @@ namespace <#= Model.ControllerNamespace #>
         public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #>)
         {
             _<#= serviceVariableName #> = <#= serviceVariableName #>;
-
         }
 
         //
@@ -62,8 +63,14 @@ namespace <#= Model.ControllerNamespace #>
 
         public ViewResult Index()
         {
-            return View(_<#= serviceVariableName #>.FindAll());
-        }
+     <# if(relatedEntities.Any()) {
+           var lambaVariable = modelName[0].ToString().ToLower();
+           var includeValues = relatedEntities.Select(x => lambaVariable + " => " + lambaVariable + "." + x.Name); #>
+       return View(_<#= serviceVariableName #>.QueryByIncludeProperties(<#= string.Join(", ", includeValues) #>));
+    <# } else { #>
+       return View(_<#= serviceVariableName #>.FindAll());
+    <# } #>
+    }
 
         //
         // GET: /<#= routingName #>/Details/5
@@ -142,26 +149,3 @@ namespace <#= Model.ControllerNamespace #>
         }
     }
 }
-
-<#+
-class RepositoryInfo {
-    public string RepositoryTypeName { get; set; }
-    public string VariableName { get; set; }
-}
-
-IDictionary<string, RepositoryInfo> _repositories;
-IDictionary<string, RepositoryInfo> Repositories {
-    get {
-        if (_repositories == null) {
-            var relatedEntities = ((IEnumerable)Model.RelatedEntities).OfType<RelatedEntityInfo>();
-            var relatedTypes = relatedEntities.Where(x => x.RelationType == RelationType.Parent).Select(x => x.RelatedEntityType).Distinct();
-            _repositories = relatedTypes.ToDictionary(
-                relatedType => relatedType.FullName,
-                relatedType => new RepositoryInfo { RepositoryTypeName = relatedType.Name + "Repository", VariableName = relatedType.Name.ToLower() + "Repository" }
-            ); 
-            _repositories[((CodeType)Model.ModelType).FullName] = new RepositoryInfo { RepositoryTypeName = Model.Repository, VariableName = ((CodeType)Model.ModelType).Name.ToLower() + "Repository" };
-        }
-        return _repositories;
-    }
-}
-#>
