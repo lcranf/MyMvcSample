@@ -1,4 +1,4 @@
-<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -39,12 +39,22 @@ namespace <#= Model.ControllerNamespace #>
 
     var relatedEntities = modelType.VisibleMembers().OfType<CodeProperty>().Where(x => x.Getter.CanOverride);
     var primaryKeyProperty = modelType.VisibleMembers().OfType<CodeProperty>().Single(x => x.Name == Model.PrimaryKey);
-    
+
+    var relatedEntitiesOneToMany = GetManyToOneEntities(modelType.VisibleMembers().OfType<CodeProperty>().ToList()); 
+        
     var routingName = Regex.Replace(Model.ControllerName, "Controller$", "", RegexOptions.IgnoreCase);
 #>
     public class <#= Model.ControllerName #> : BaseController
     {
         private readonly I<#= serviceName #> _<#= serviceVariableName #>;
+					
+		<# foreach (var item in relatedEntitiesOneToMany) {#>			
+			
+		private readonly I<#= item #>Service _<#= FixNamingConvention(item) #>Service ;											
+	    
+		<#} #>
+		
+		
         <# if(Model.NoIoc) { #>
 
         // If you are using Dependency Injection, you can delete the following constructor
@@ -53,9 +63,23 @@ namespace <#= Model.ControllerNamespace #>
         }
         <# } #>
 
-        public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #>)
+        public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #> 
+			<# 
+				relatedEntitiesOneToMany.ForEach(entity => {#>
+					, I<#= entity #>Service <#= FixNamingConvention(entity) #>Service 
+				<#});
+		
+		    #>
+		)
         {
             _<#= serviceVariableName #> = <#= serviceVariableName #>;
+			
+				<# 
+				relatedEntitiesOneToMany.ForEach(entity => {#>
+		    _<#= FixNamingConvention(entity) #>Service =  <#= FixNamingConvention(entity) #>Service;
+				<#});
+		
+		    #>
         }
 
         //
@@ -149,3 +173,26 @@ namespace <#= Model.ControllerNamespace #>
         }
     }
 }
+
+<#+
+
+List<string> GetManyToOneEntities(List<CodeProperty> codeProperties)
+{
+	var results = new List<string>();
+	
+		foreach (var item in codeProperties) { 			
+			var baseMembers = item.Type.CodeType.Bases.OfType<CodeType>().Where(f => f.Name == "BaseReferenceEntity").ToList();
+			if (baseMembers.Count > 0 && Model.CreateViewModels) { results.Add(item.Name);	}}	
+						
+	return results;
+}
+
+
+string FixNamingConvention(string source)
+{   
+	if (string.IsNullOrEmpty(source) || source.Length < 2) return source;
+	
+	return source.Substring(0,1).ToLower() + source.Substring(1);		
+}
+		
+#>
