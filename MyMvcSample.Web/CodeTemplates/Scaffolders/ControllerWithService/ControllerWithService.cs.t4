@@ -66,13 +66,20 @@ namespace <#= Model.ControllerNamespace #>
         public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #> 
 			<# 
 				relatedEntitiesOneToMany.ForEach(entity => {#>
-					, I<#= entity #>Service _<#= FixNamingConvention(entity) #>Service 
+					, I<#= entity #>Service <#= FixNamingConvention(entity) #>Service 
 				<#});
 		
 		    #>
 		)
         {
             _<#= serviceVariableName #> = <#= serviceVariableName #>;
+			
+				<# 
+				relatedEntitiesOneToMany.ForEach(entity => {#>
+		    _<#= FixNamingConvention(entity) #>Service =  <#= FixNamingConvention(entity) #>Service;
+				<#});
+		
+		    #>
         }
 
         //
