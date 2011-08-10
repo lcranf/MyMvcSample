@@ -50,7 +50,7 @@ namespace <#= Model.ControllerNamespace #>
 					
 		<# foreach (var item in relatedEntitiesOneToMany) {#>			
 			
-		//private readonly I<#= item #>Service _<#= item.Substring(0,1).ToLower() + item.Substring(1) #>Service ;											
+		private readonly I<#= item #>Service _<#= FixNamingConvention(item) #>Service ;											
 	    
 		<#} #>
 		
@@ -63,7 +63,14 @@ namespace <#= Model.ControllerNamespace #>
         }
         <# } #>
 
-        public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #>)
+        public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #> 
+			<# 
+				relatedEntitiesOneToMany.ForEach(entity => {#>
+					, I<#= entity #>Service _<#= FixNamingConvention(entity) #>Service 
+				<#});
+		
+		    #>
+		)
         {
             _<#= serviceVariableName #> = <#= serviceVariableName #>;
         }
