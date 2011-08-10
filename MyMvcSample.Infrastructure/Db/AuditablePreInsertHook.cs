@@ -18,7 +18,7 @@ namespace MyMvcSample.Infrastructure.Db
             var userName = HttpContext.Current
                                       .IfNotNull(c => c.User)
                                       .IfNotNull(u => u.Identity)
-                                      .IfNotNull(i => i.Name, "Unkown User");
+                                      .IfNotNull(i => i.Name, "Anonymous User");
 
             entity.CreatedBy = userName;
             entity.CreatedOn = DateTime.Now;

@@ -21,7 +21,7 @@ namespace MyMvcSample.Infrastructure.Db
             var userName = HttpContext.Current
                                       .IfNotNull(c => c.User)
                                       .IfNotNull(u => u.Identity)
-                                      .IfNotNull(i => i.Name, "Unknown User");
+                                      .IfNotNull(i => i.Name, "Anonymous User");
 
             entity.UpdatedBy = userName;
             entity.UpdatedOn = DateTime.Now;

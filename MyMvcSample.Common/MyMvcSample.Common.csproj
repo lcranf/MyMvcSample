@@ -77,7 +77,6 @@
     <Compile Include="ViewModels\BaseEditModel.cs" />
     <Compile Include="ViewModels\ICreateModel.cs" />
     <Compile Include="ViewModels\IEditModel.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
