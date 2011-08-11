@@ -172,7 +172,7 @@
     <Content Include="packages.config" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.ps1" />
     <None Include="CodeTemplates\Scaffolders\ControllerWithService\ControllerWithService.cs.t4" />
-    <None Include="CodeTemplates\Scaffolders\Helpers\helper.t4" />
+    <None Include="CodeTemplates\Scaffolders\Helpers\sharedFunctions.t4" />
     <None Include="CodeTemplates\Scaffolders\RazorView\Create.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\RazorView\Delete.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\RazorView\Details.cs.t4" />

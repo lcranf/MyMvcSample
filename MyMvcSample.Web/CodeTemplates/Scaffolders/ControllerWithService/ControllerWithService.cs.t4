@@ -1,4 +1,4 @@
-﻿//NOTE:  Need a better way to add the System.Data.Entity.Design assembly
+﻿<# //NOTE:  Need a better way to add the System.Data.Entity.Design assembly #>
 <#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
 <#@ assembly name="System.Data" #>
@@ -126,9 +126,9 @@ namespace <#= Model.ControllerNamespace #>
             <#=((Model.CreateViewModels) ? "var model = new " + modelName + "CreateModel();" : string.Empty) #>
 			
 			
-        	<# 
+        	<# if (Model.CreateViewModels)
 			relatedEntitiesOneToMany.ForEach(entity => {#>
-	        model.OrderStatuses =  _<#= FixNamingConvention(entity) #>Service.FindAll().ToSelectItems();
+	        model.<#= Pluralize(entity) #> =  _<#= FixNamingConvention(entity) #>Service.FindAll().ToSelectItems();
 			<#});#>
 	
 	        
