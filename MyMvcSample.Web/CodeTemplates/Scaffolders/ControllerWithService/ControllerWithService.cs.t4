@@ -10,6 +10,8 @@
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Globalization" #>
 <#@ import namespace="EnvDTE" #>
+<#@ include file="..\Helpers\helper.t4" #>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -194,26 +196,3 @@ namespace <#= Model.ControllerNamespace #>
         }
     }
 }
-
-<#+
-
-List<string> GetManyToOneEntities(List<CodeProperty> codeProperties)
-{
-	var results = new List<string>();
-	
-		foreach (var item in codeProperties) { 			
-			var baseMembers = item.Type.CodeType.Bases.OfType<CodeType>().Where(f => f.Name == "BaseReferenceEntity").ToList();
-			if (baseMembers.Count > 0 && Model.CreateViewModels) { results.Add(item.Name);	}}	
-						
-	return results;
-}
-
-
-string FixNamingConvention(string source)
-{   
-	if (string.IsNullOrEmpty(source) || source.Length < 2) return source;
-	
-	return source.Substring(0,1).ToLower() + source.Substring(1);		
-}
-		
-#>
