@@ -24,6 +24,7 @@ using <#= Model.ViewModelNamespace + "." + Model.ModelTypePluralized #>;
 <# } #>
 <# if (!string.IsNullOrEmpty(Model.CommonExtensionNamespace)) { #>
 using <#= Model.CommonExtensionNamespace #>;
+using MyMvcSample.Common.Mvc.Extensions;
 <# } #>
 
 
@@ -110,7 +111,16 @@ namespace <#= Model.ControllerNamespace #>
         public ActionResult Create()
         {
             <#=((Model.CreateViewModels) ? "var model = new " + modelName + "CreateModel();" : string.Empty) #>
-            return View(<#=(Model.CreateViewModels) ? "model" : string.Empty #>);
+			
+			
+        	<# 
+			relatedEntitiesOneToMany.ForEach(entity => {#>
+	        model.OrderStatuses =  _<#= FixNamingConvention(entity) #>Service.FindAll().ToSelectItems();
+			<#});#>
+	
+	        
+			
+			return View(<#=(Model.CreateViewModels) ? "model" : string.Empty #>);
         } 
 
         //
