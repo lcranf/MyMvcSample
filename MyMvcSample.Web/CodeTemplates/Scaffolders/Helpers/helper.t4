@@ -1,0 +1,30 @@
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+<#@ Output Extension="cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="EnvDTE" #>
+
+<#+
+
+List<string> GetManyToOneEntities(List<CodeProperty> codeProperties)
+{
+	var results = new List<string>();
+	
+		foreach (var item in codeProperties) { 			
+			var baseMembers = item.Type.CodeType.Bases.OfType<CodeType>().Where(f => f.Name == "BaseReferenceEntity").ToList();
+			if (baseMembers.Count > 0 && Model.CreateViewModels) { results.Add(item.Name);	}}	
+						
+	return results;
+}
+
+
+string FixNamingConvention(string source)
+{   
+	if (string.IsNullOrEmpty(source) || source.Length < 2) return source;
+	
+	return source.Substring(0,1).ToLower() + source.Substring(1);		
+}
+		
+#>

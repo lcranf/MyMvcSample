@@ -1,9 +1,14 @@
-﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+﻿//NOTE:  Need a better way to add the System.Data.Entity.Design assembly
+<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.Entity.dll" #>   
+<#@ assembly name="C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.Entity.Design.dll" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Globalization" #>
 <#@ import namespace="EnvDTE" #>
 using System;
 using System.Collections.Generic;
@@ -44,6 +49,12 @@ namespace <#= Model.ControllerNamespace #>
     var relatedEntitiesOneToMany = GetManyToOneEntities(modelType.VisibleMembers().OfType<CodeProperty>().ToList()); 
         
     var routingName = Regex.Replace(Model.ControllerName, "Controller$", "", RegexOptions.IgnoreCase);
+
+	var pluralizationservice =
+        System.Data.Entity.Design.PluralizationServices.PluralizationService.CreateService(CultureInfo.CurrentCulture);
+
+
+
 #>
     public class <#= Model.ControllerName #> : BaseController
     {
