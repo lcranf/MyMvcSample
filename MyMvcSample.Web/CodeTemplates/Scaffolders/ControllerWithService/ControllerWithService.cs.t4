@@ -61,12 +61,13 @@ namespace <#= Model.ControllerNamespace #>
     public class <#= Model.ControllerName #> : BaseController
     {
         private readonly I<#= serviceName #> _<#= serviceVariableName #>;
+		
 					
-		<# foreach (var item in relatedEntitiesOneToMany) {#>			
+		<# if (Model.CreateViewModels) { relatedEntitiesOneToMany.ForEach(item => { #>			
 			
-		private readonly I<#= item #>Service _<#= FixNamingConvention(item) #>Service ;											
-	    
-		<#} #>
+		private readonly I<#= item #>Service _<#= FixNamingConvention(item) #>Service;
+		
+		<#});} #>
 		
 		
         <# if(Model.NoIoc) { #>
@@ -77,7 +78,13 @@ namespace <#= Model.ControllerNamespace #>
         }
         <# } #>
 
-        public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #> 
+
+		<#
+		 if (Model.CreateViewModels)
+		 {
+		#>
+		
+			  public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #> 
 			<# 
 				relatedEntitiesOneToMany.ForEach(entity => {#>
 					, I<#= entity #>Service <#= FixNamingConvention(entity) #>Service 
@@ -95,7 +102,23 @@ namespace <#= Model.ControllerNamespace #>
 		
 		    #>
         }
-
+		
+		<#	
+		 }
+		 else
+		 {
+		#>
+			
+			  public <#= Model.ControllerName #>(I<#= serviceName #> <#= serviceVariableName #>) 	
+		      {
+                _<#= serviceVariableName #> = <#= serviceVariableName #>;
+						
+        	  }
+				
+		<#	
+		 }
+		#>
+		
         //
         // GET: /<#= routingName #>/
 
