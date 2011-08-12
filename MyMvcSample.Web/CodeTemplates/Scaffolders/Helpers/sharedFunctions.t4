@@ -1,9 +1,12 @@
-﻿<# //NOTE:  Need a better way to add the System.Data.Entity.Design assembly #>
+﻿<#
+//NOTE:  Need a better way to add the System.Data.Entity.Design assembly
+//NOTE:  Remove (x86) from System.Data.Entity.Design.dll path below if you have a 32 bit machine
+#>
 <#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
 <#@ assembly name="System.Data" #>
 <#@ assembly name="System.Data.Entity.dll" #>   
-<#@ assembly name="C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.Entity.Design.dll" #>
+<#@ assembly name="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.Entity.Design.dll" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
