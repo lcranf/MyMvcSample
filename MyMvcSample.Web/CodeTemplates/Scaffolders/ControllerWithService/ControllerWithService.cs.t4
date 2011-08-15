@@ -139,10 +139,10 @@ namespace <#= Model.ControllerNamespace #>
             <#=((Model.CreateViewModels) ? "var model = new " + modelName + "CreateModel();" : string.Empty) #>
 			
 			
-        	<# if (Model.CreateViewModels)
+        	<# if (Model.CreateViewModels) {
 			relatedEntitiesOneToMany.ForEach(entity => {#>
 	        model.<#= Pluralize(entity) #> =  _<#= FixNamingConvention(entity) #>Service.FindAll().ToSelectItems();
-			<#});#>
+			<#});}#>
 	
 	        
 			
