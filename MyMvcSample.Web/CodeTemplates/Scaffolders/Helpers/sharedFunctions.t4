@@ -21,6 +21,8 @@ List<string> GetManyToOneEntities(List<CodeProperty> codeProperties)
 {
 	var results = new List<string>();
 	
+	
+        //TODO: Need to change from BaseReferenceEntity to BaseEntity	
 		foreach (var item in codeProperties) { 			
 			var baseMembers = item.Type.CodeType.Bases.OfType<CodeType>().Where(f => f.Name == "BaseReferenceEntity").ToList();
 			if (baseMembers.Count > 0 && Model.CreateViewModels) { results.Add(item.Name);	}}	
