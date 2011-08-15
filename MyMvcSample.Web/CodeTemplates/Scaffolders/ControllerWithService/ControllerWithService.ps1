@@ -149,7 +149,7 @@ if($CreateViewModels) {
        -Area $Area -AreaNamespace $areaNamespace -ModelNamespace $modelTypeNamespace `
        -ViewModelNamespace $viewModelsNamespace -PrimaryKey = $primaryKey `
        -ViewModelOutputPath $viewModelsPath -DefaultNamespace $defaultNamespace `
-       -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController       
+       -Project $Project -CodeLanguage $CodeLanguage -CreateViewModels:$CreateViewModels -Force:$overwriteFilesExceptController       
 }
 
 if (!$NoChildItems) {
