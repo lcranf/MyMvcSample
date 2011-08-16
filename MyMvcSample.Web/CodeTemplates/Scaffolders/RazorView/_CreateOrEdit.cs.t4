@@ -69,7 +69,7 @@ relatedEntitiesOneToMany.ForEach(entity => {
 </div>
 
 <div class="editor-field">
-    @Html.DropDownListFor(model => model.<#= entity #>, Model.OrderStatuses, "Select Order Status")
+    @Html.DropDownListFor(model => model.<#= entity #>, Model.<#= Pluralize(entity) #>, "Select item..")
     @Html.ValidationMessageFor(model => model.<#= entity #>)
 </div>
 
