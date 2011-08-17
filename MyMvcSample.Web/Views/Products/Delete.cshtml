@@ -15,6 +15,9 @@
 
     <div class="display-label">Price</div>
     <div class="display-field">@String.Format("{0:F}", Model.Price)</div>
+
+    <div class="display-label">ProductType</div>
+    <div class="display-field">@(Model.ProductType == null ? "None" : Model.ProductType.Name)</div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>

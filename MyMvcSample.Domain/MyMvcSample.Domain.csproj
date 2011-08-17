@@ -62,6 +62,7 @@
     <Compile Include="Entities\OrderLineItem.cs" />
     <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

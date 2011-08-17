@@ -18,3 +18,15 @@
     @Html.ValidationMessageFor(model => model.Price)
 </div>
 
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ProductType)
+</div>
+
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.ProductType, Model.ProductTypes, "Select item..")
+    @Html.ValidationMessageFor(model => model.ProductType)
+</div>
+
+
+

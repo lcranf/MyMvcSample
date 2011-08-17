@@ -18,6 +18,9 @@
         <th>
             Price
         </th>
+        <th>
+            ProductType
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -32,6 +35,9 @@
         </td>
         <td>
 			@String.Format("{0:F}", item.Price)
+        </td>
+        <td>
+			@(item.ProductType == null ? "None" : item.ProductType.Name)
         </td>
     </tr>
 }

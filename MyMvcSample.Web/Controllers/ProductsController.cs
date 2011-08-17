@@ -8,6 +8,7 @@ using MyMvcSample.Core.Services;
 using MyMvcSample.Common.Mvc;
 using MyMvcSample.ViewModels.Products;
 using MyMvcSample.Common.Extensions;
+using MyMvcSample.Common.Mvc.Extensions;
 
 
 namespace MyMvcSample.Controllers
@@ -15,11 +16,13 @@ namespace MyMvcSample.Controllers
     public class ProductsController : BaseController
     {
         private readonly IProductService _productService;
-        
-        public ProductsController(IProductService productService)
+        private readonly IProductTypeService _productTypeService;
+
+        public ProductsController(IProductService productService,
+                                  IProductTypeService productTypeService)
         {
             _productService = productService;
-
+            _productTypeService = productTypeService;
         }
 
         //
@@ -27,7 +30,7 @@ namespace MyMvcSample.Controllers
 
         public ViewResult Index()
         {
-            return View(_productService.FindAll());
+            return View(_productService.QueryByIncludeProperties(p => p.ProductType));
         }
 
         //
@@ -44,8 +47,11 @@ namespace MyMvcSample.Controllers
         public ActionResult Create()
         {
             var model = new ProductCreateModel();
+
+            model.ProductTypes = _productTypeService.FindAll().ToSelectItems();
+
             return View(model);
-        } 
+        }
 
         //
         // POST: /Products/Create
@@ -69,6 +75,7 @@ namespace MyMvcSample.Controllers
         public ActionResult Edit(Product id)
         {
              var model = id.MapTo(new ProductEditModel());
+            model.ProductTypes = _productTypeService.FindAll().ToSelectItems();
              return View(model);
         }
 
@@ -107,4 +114,3 @@ namespace MyMvcSample.Controllers
         }
     }
 }
-
