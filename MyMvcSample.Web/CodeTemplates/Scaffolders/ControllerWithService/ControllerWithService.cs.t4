@@ -171,6 +171,12 @@ namespace <#= Model.ControllerNamespace #>
         public ActionResult Edit(<#= modelName #> id)
         {
              <#=((Model.CreateViewModels) ? "var model = id.MapTo(new " + modelName + "EditModel());" : string.Empty) #>
+			 
+			 	<# if (Model.CreateViewModels) {
+			relatedEntitiesOneToMany.ForEach(entity => {#>
+	        model.<#= Pluralize(entity) #> =  _<#= FixNamingConvention(entity) #>Service.FindAll().ToSelectItems();
+			<#});}#>
+			 
              return View(<#=(Model.CreateViewModels) ? "model" : "id" #>);
         }
 
