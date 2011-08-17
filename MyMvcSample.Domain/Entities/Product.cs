@@ -7,5 +7,7 @@ namespace MyMvcSample.Domain.Entities
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        public virtual ProductType ProductType { get; set; }
     }
 }

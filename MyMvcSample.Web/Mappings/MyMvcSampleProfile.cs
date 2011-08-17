@@ -26,6 +26,8 @@ namespace MyMvcSample.Mappings
             CreateMap<OrderStatus, int>().ConvertUsing<EntityToIdTypeConverter<OrderStatus>>();
             CreateMap<OrderCreateModel, Order>();
 
+            CreateMap<int, ProductType>().ConvertUsing<IdToEntityTypeConverter<ProductType>>();
+            CreateMap<ProductType, int>().ConvertUsing<EntityToIdTypeConverter<ProductType>>();
             CreateMap<ProductCreateModel, Product>();
             CreateMap<Product, ProductCreateModel>();
 

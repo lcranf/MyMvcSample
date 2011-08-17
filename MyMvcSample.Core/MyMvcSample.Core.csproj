@@ -47,9 +47,11 @@
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IOrderStatusService.cs" />
     <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\IProductTypeService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\OrderStatusService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\ProductTypeService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
