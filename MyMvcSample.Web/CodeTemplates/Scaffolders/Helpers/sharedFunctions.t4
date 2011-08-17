@@ -1,10 +1,7 @@
-﻿<#
-//NOTE:  Need a better way to add the System.Data.Entity.Design assembly
-#>
-<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
+﻿<#@ template language="C#" HostSpecific="True"  inherits="DynamicTransform" #>
 <#@ Output Extension="cs" #>
 <#@ assembly name="System.Data" #>
-<#@ assembly name="System.Data.Entity.dll" #>   
+<#@ assembly name="System.Data.Entity.dll" #>
 <#@ assembly name="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.Entity.Design.dll" #>
 <#@ assembly name="C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.Entity.Design.dll" #>
 <#@ import namespace="System.Collections" #>
@@ -13,7 +10,6 @@
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="EnvDTE" #>
 <#@ import namespace="System.Globalization" #>
-
 <#+
 
 
