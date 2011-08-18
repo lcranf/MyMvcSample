@@ -85,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectMVC3.cs" />
+    <None Include="CodeTemplates\Scaffolders\Service\Service.cs.t4">
+      <SubType>Code</SubType>
+    </None>
     <Compile Include="Controllers\ElmahController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -181,8 +184,7 @@
     <None Include="CodeTemplates\Scaffolders\RazorView\Index.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\RazorView\RazorView.ps1" />
     <None Include="CodeTemplates\Scaffolders\RazorView\_CreateOrEdit.cs.t4" />
-    <Compile Include="CodeTemplates\Scaffolders\Service\IService.cs.t4" />
-    <Compile Include="CodeTemplates\Scaffolders\Service\Service.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\Service\IService.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\Service\Service.ps1" />
     <None Include="CodeTemplates\Scaffolders\ViewModels\Model.Template.cs.t4" />
     <None Include="CodeTemplates\Scaffolders\ViewModels\ViewModels.ps1" />
