@@ -46,19 +46,15 @@ namespace <#= Model.DefaultNamespace #>
         <# foreach(CodeProperty property in publicProperties) { #>
 
         public <#= property.Type.AsString #> <#= property.Name #> { get; <#= GetFunctionAsString(property.Setter) #> }
-        <# } #>
-
-        
-	    <# if (Model.IsBaseClass && Model.CreateViewModels) {#>
-		//One to Many reference objects
-		
-	    <# 
-				relatedEntitiesOneToMany.ForEach(entity => {#>
-					public IEnumerable<SelectListItem> <#= Pluralize(entity) #> { get; set; }
-		<#});#>
+        <# } #>        
+<# if (Model.IsBaseClass && Model.CreateViewModels) {#>
+        //One to Many reference objects		
+<#relatedEntitiesOneToMany.ForEach(entity => {#>
+		public IEnumerable<SelectListItem> <#= Pluralize(entity) #> { get; set; }
+<#});#>
 		
 		
-		<# }#>
+<# }#>
     }
 }
 
