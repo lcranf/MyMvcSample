@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using MyMvcSample.Common.Domain;
 
 namespace MyMvcSample.Common.Mappings
@@ -8,7 +9,7 @@ namespace MyMvcSample.Common.Mappings
     {
         protected override int ConvertCore(TEntity entity)
         {
-            return entity.Id;
+            return (EqualityComparer<TEntity>.Default.Equals(entity, default(TEntity))) ? -1 : entity.Id;
         }
     }
 }

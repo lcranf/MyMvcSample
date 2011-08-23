@@ -85,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectMVC3.cs" />
+    <Compile Include="ViewModels\Products\BaseProductModel.cs" />
+    <Compile Include="ViewModels\Products\ProductCreateModel.cs" />
+    <Compile Include="ViewModels\Products\ProductEditModel.cs" />
     <None Include="CodeTemplates\Scaffolders\Service\Service.cs.t4">
       <SubType>Code</SubType>
     </None>
@@ -104,9 +107,12 @@
     <Compile Include="ViewModels\Orders\OrderEditModel.cs" />
     <Compile Include="ViewModels\Orders\BaseOrderModel.cs" />
     <Compile Include="ViewModels\Orders\OrderViewModel.cs" />
-    <Compile Include="ViewModels\Products\BaseProductModel.cs" />
-    <Compile Include="ViewModels\Products\ProductCreateModel.cs" />
-    <Compile Include="ViewModels\Products\ProductEditModel.cs" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -198,17 +204,10 @@
     <Content Include="Views\Orders\_CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_AuditDetails.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Common\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyMvcSample.Common.Mvc\MyMvcSample.Common.Mvc.csproj">

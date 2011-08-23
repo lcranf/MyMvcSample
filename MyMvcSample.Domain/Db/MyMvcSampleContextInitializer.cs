@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using FizzWare.NBuilder;
 using MyMvcSample.Domain.Entities;
@@ -40,6 +41,13 @@ namespace MyMvcSample.Domain.Db
 
             //save in context
             orders.ToList().ForEach(o => context.Orders.Add(o));
+
+            var productTypes = new List<ProductType>
+                                   {
+                                       new ProductType {Name = "Clothes"},
+                                       new ProductType {Name = "Shoes"},
+                                       new ProductType {Name = "Hats"},
+                                   };
         }
     }
 }

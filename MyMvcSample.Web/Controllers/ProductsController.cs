@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +11,28 @@ using MyMvcSample.ViewModels.Products;
 using MyMvcSample.Common.Extensions;
 using MyMvcSample.Common.Mvc.Extensions;
 
-
 namespace MyMvcSample.Controllers
-{   
+{
+
     public class ProductsController : BaseController
     {
         private readonly IProductService _productService;
         private readonly IProductTypeService _productTypeService;
 
-        public ProductsController(IProductService productService,
-                                  IProductTypeService productTypeService)
+        // If you are using Dependency Injection, you can delete the following constructor
+        public ProductsController() : this(new ProductService(), new ProductTypeService())
         {
-            _productService = productService;
-            _productTypeService = productTypeService;
         }
 
+        public ProductsController(IProductService productService,IProductTypeService productTypeService)
+        {
+            _productService = productService;			
+            _productTypeService =  productTypeService;
+        }
+        
+        
         //
         // GET: /Products/
-
         public ViewResult Index()
         {
             return View(_productService.QueryByIncludeProperties(p => p.ProductType));
@@ -35,7 +40,6 @@ namespace MyMvcSample.Controllers
 
         //
         // GET: /Products/Details/5
-
         public ViewResult Details(Product id)
         {
             return View(id);
@@ -43,19 +47,15 @@ namespace MyMvcSample.Controllers
 
         //
         // GET: /Products/Create
-
         public ActionResult Create()
         {
             var model = new ProductCreateModel();
-
-            model.ProductTypes = _productTypeService.FindAll().ToSelectItems();
-
+            model.ProductTypes =  _productTypeService.FindAll().ToSelectItems();
             return View(model);
-        }
+        } 
 
         //
-        // POST: /Products/Create
-       
+        // POST: /Products/Create       
         [HttpPost]
         public ActionResult Create(ProductCreateModel product)
         {
@@ -71,17 +71,16 @@ namespace MyMvcSample.Controllers
         
         //
         // GET: /Products/Edit/5
- 
         public ActionResult Edit(Product id)
         {
-             var model = id.MapTo(new ProductEditModel());
-            model.ProductTypes = _productTypeService.FindAll().ToSelectItems();
-             return View(model);
+            var model = id.MapTo(new ProductEditModel());
+            model.ProductTypes =  _productTypeService.FindAll().ToSelectItems();
+             
+            return View(model);
         }
 
         //
         // POST: /Products/Edit/5
-
         [HttpPost, ActionName("Edit")]
         public ActionResult EditPosted(ProductEditModel product)
         {
@@ -96,7 +95,6 @@ namespace MyMvcSample.Controllers
 
         //
         // GET: /Products/Delete/5
- 
         public ActionResult Delete(Product id)
         {
             return View(id);
@@ -104,12 +102,10 @@ namespace MyMvcSample.Controllers
 
         //
         // POST: /Products/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             _productService.Delete(id);
-
             return RedirectToAction("Index");
         }
     }
