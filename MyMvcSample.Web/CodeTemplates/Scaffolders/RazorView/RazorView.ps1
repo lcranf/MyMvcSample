@@ -13,6 +13,7 @@ param(
 	[string]$CodeLanguage,
 	[string[]]$TemplateFolders,
     [switch]$CreateViewModels = $false,
+	[string]$EntityModelType,
 	[switch]$Force = $false
 )
 
@@ -27,6 +28,11 @@ if ($ModelType) {
 	$foundModelType = Get-ProjectType $ModelType -Project $Project
 	if (!$foundModelType) { return }
 	$primaryKeyName = [string](Get-PrimaryKey $foundModelType.FullName -Project $Project)
+}
+
+if ($EntityModelType) {
+   $foundEntityModelType = Get-ProjectType $EntityModelType -Project $Project
+	if (!$foundEntityModelType) { return }
 }
 
 # Decide where to put the output
@@ -57,6 +63,9 @@ Add-ProjectItemViaTemplate $outputPath -Template $Template -Model @{
 	PrimaryKeyName = $primaryKeyName;
 	ViewDataType = [MarshalByRefObject]$foundModelType;
 	ViewDataTypeName = $foundModelType.Name;
+	ModelDataType = [MarshalByRefObject]$foundEntityModelType;
+	ModelDataTypeName = $foundEntityModelType.Name;
+	
 	RelatedEntities = $relatedEntities;
 	CreateViewModels = $CreateViewModels.IsPresent;
 } -SuccessMessage "Added $ViewName view at '{0}'" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
