@@ -19,7 +19,6 @@
  var modelType = (CodeType)Model.ModelDataType;
  var relatedEntitiesOneToMany = GetManyToOneEntities(modelType.VisibleMembers().OfType<CodeProperty>().ToList()); 
 #>
-ViewDataType: <#= Model.ViewDataTypeName #>
 <# if(viewDataType != null) { #>
 @model <#= viewDataType.FullName #>
 
